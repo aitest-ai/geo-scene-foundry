@@ -18,3 +18,8 @@
 
 - [青池四季互動 HTML](nature/demos/blue-pond-seasons-002.html)：青池、夏湖、薄霧、夕照＋春夏秋冬的色彩、天空與霧參數過渡，**保留 001 不變**。
 - [002 技術與驗收紀錄](nature/demos/README-season-002.md)：目前 JS 靜態檢查通過，但環境 Chromium 無 WebGL2，尚未完成真實瀏覽器 GPU 測試。
+
+## 003｜分層秋林、岸雪與季節倒影候選
+
+- [003 獨立互動 HTML](nature/demos/blue-pond-seasons-003.html)：兩層不規則森林、冬季岸雪微地形、秋冬反射和 002/003 同鏡位切換。
+- [003 技術 QA](nature/demos/README-season-003.md)：WebGL2 實際 GPU、FPS 與手機尚未驗證；舊版 001/002 均保留。

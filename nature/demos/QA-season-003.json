@@ -1,0 +1,19 @@
+{
+  "version": "003",
+  "source": "blue-pond-seasons-002.html",
+  "candidate": "blue-pond-seasons-003.html",
+  "source_sha256": "af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b",
+  "baseline002_git_blob_sha": "8ea221220fbeefccc45bbbf4b5f1016336b67079",
+  "qa_status": "unverified-gpu",
+  "js_syntax": "pass",
+  "webgl2_browser": {
+    "swiftshader": "unavailable",
+    "egl": "unavailable",
+    "swiftshader_webgl": "unavailable"
+  },
+  "visual_reflection_qa": "not tested",
+  "performance_fps": "not tested",
+  "android": "not tested",
+  "fft_integrated": false,
+  "original_maps_modified": false
+}
