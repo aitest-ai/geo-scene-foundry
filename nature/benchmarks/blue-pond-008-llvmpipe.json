@@ -1,0 +1,22 @@
+{
+  "renderer": "Mesa llvmpipe (LLVM 19.1.7, 256 bits)",
+  "resolution": [
+    480,
+    270
+  ],
+  "samples007Seconds": [
+    0.07161887499978548,
+    0.041223825000088254,
+    0.03495549300032508,
+    0.043049381999935576
+  ],
+  "samples008Seconds": [
+    0.037228018999940105,
+    0.03583817100025044,
+    0.04522626499965554,
+    0.045502474999921105
+  ],
+  "warmMedian007Seconds": 0.041223825000088254,
+  "warmMedian008Seconds": 0.04522626499965554,
+  "qualification": "Same software OpenGL ES 3.2 context and dimensions; 4 frames/mode, first sample excluded from median. Does NOT verify a speedup."
+}

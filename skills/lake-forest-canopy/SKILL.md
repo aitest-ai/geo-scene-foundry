@@ -28,3 +28,8 @@ description: Improve procedural lake forests with layered evergreen, larch and d
 007 已通過 Node 單元測試、Mesa OpenGL ES 3.2 llvmpipe 兩個 GPU 程式的四段 Shader 編譯與連結，並產出同鏡位夏秋冬影像。**llvmpipe 是軟體渲染器，不是實體 GPU FPS。** 仍未完成 Chrome/Android/iOS 畫質與幀率驗收。
 
 這是 Biei-inspired 的示意視覺原型，非現地 DEM、真實樹種清查或完整 Open Water 四層 FFT。
+
+## 008 後續（保持 007 完整可回退）
+
+- [008 樹冠 LOD／效能技能](../lake-forest-lod/SKILL.md)｜[008 可操作源碼](../../nature/demos/blue-pond-forest-008.html)。
+- 提供同鏡位 007/008 比較及可選畫面解析度；目前沒有通過實機加速驗證，不可宣稱加速已完成。

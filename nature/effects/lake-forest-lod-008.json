@@ -1,0 +1,43 @@
+{
+  "id": "lake-forest-lod-008",
+  "version": "0.1.0",
+  "status": "prototype",
+  "originalSha256": "9e3a562c77e475fb144149d7ddeb972531c26c7e46e4df04142a28de39b7398b",
+  "candidateSha256": "9496ed23db8b5296e2d939c75456f78258447f632fb0bf8196f3999c2d2e362a",
+  "techniques": [
+    "horizontal cull before shoreHeight fbm",
+    "irregular multi-lobe near canopy",
+    "cheaper far-depth shading",
+    "shrubs horizontal/vertical cull",
+    "same-camera old/new comparison"
+  ],
+  "controls": {
+    "scene": "uForest008",
+    "particles": "pForest008",
+    "qualityOptions": [
+      1,
+      0.8,
+      0.65
+    ],
+    "defaultQuality": 1
+  },
+  "verification": {
+    "nodeLocalPassed": true,
+    "gpuCompileGLES32LlvmPipe": true,
+    "offscreenImages": true,
+    "hardwareFPSVerified": false,
+    "mobileFPSVerified": false,
+    "fftIntegrated": false,
+    "waterShaderUnchanged": true
+  },
+  "softwareBenchmark": {
+    "resolution": [
+      480,
+      270
+    ],
+    "warmMedian007Ms": 41.2,
+    "warmMedian008Ms": 45.2,
+    "sameResolutionSpeedupVerified": false,
+    "note": "Small software-rendered sample, not a hardware FPS claim."
+  }
+}

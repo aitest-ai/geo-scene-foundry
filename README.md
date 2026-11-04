@@ -47,3 +47,8 @@
 - [007 程序式湖景](nature/demos/blue-pond-forest-007.html) — 針葉／落葉松／闊葉混合樹冠、林緣矮灌木、秋冬倒影。
 - [共用技能](skills/lake-forest-canopy/SKILL.md)｜[樹種預設](nature/effects/lake-forest-007.json)｜[驗收與限制](nature/demos/README-forest-007.md)。
 - 001～006 和全部既有地圖均保留。GLSL ES 3.20 軟體離屏編譯與渲染通過；實體 GPU／瀏覽器／手機的 FPS 尚未驗收。
+
+## 青池 008｜枝葉 LOD 與可調畫質（獨立候選）
+
+- [008 完整 WebGL2 單檔](nature/demos/blue-pond-forest-008.html)｜[AI 共用技能](skills/lake-forest-lod/SKILL.md)｜[效能實測紀錄](nature/benchmarks/blue-pond-008-llvmpipe.json)。
+- 湖水、枯立木與 001～007 均保留。新樹冠在軟體 OpenGL ES 編譯／渲染通過，但同解析度沒有證明比 007 快；瀏覽器與手機 FPS 尚待驗收。
