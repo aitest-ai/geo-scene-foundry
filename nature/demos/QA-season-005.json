@@ -12,5 +12,28 @@
   "fps": "not measured",
   "mobile": "not tested",
   "fftIntegrated": false,
-  "sourceMapsChanged": false
+  "sourceMapsChanged": false,
+  "fix1": {
+    "issue": "ERROR: 0:82: 'treeIntersect' : no matching overloaded function found",
+    "rootCause": "function declared only in main scene fragment shader, not independently compiled particle fragment shader",
+    "changedFiles": [
+      "nature/demos/blue-pond-seasons-005.html",
+      "nature/tests/blue-pond-005.test.mjs",
+      "nature/demos/README-season-005.md",
+      "nature/demos/QA-season-005.json",
+      "skills/particle-water-contact/SKILL.md"
+    ],
+    "eglGLES3Compile": {
+      "backend": "ANGLE OpenGL ES 3.0 (EGL offscreen)",
+      "mainVertex": "pass",
+      "mainFragment": "pass",
+      "mainLink": "pass",
+      "particleVertex": "pass",
+      "particleFragment": "pass",
+      "particleLink": "pass"
+    },
+    "chromeWebGL2Visual": "not tested",
+    "mobileFPS": "not tested",
+    "existingVersionsUnchanged": true
+  }
 }

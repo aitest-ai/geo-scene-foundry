@@ -24,3 +24,7 @@ description: Reuse Blue Pond 005's world-space GPU particle occlusion and visual
 
 ## 限制與誠實標示
 這是原型且尚未完成 GPU 視覺驗收。岸邊是 Shader 交點，不是遊戲碰撞網格；沒有落葉堆積、積雪累積、粒子流體耦合或 Open Water 四層 FFT。不要宣稱高擬真正式驗收。
+
+## 005 Fix1：跨 Shader 函式作用域（必要工程教訓）
+
+`treeIntersect()` 必須在**獨立粒子片段 Shader 本身**定義，不能只存在主場景 Shader。005 Fix1 已將主場景的樹木相交函式移植進 `particleFrag`。每個獨立 GLSL program 均須自己有完整的依賴；新增跨 Shader 功能必須跑實際 OpenGL ES 3.0 編譯與程式連結，再進行瀏覽器視覺／FPS 驗收。

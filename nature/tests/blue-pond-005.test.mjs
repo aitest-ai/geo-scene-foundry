@@ -30,3 +30,18 @@ test("deterministic contact predictions and shoreline",()=>{
  assert.ok(total>0);
 });
 test("GPU/mobile/physics remain explicitly unverified",()=>{assert.equal(p.status,"prototype");assert.equal(p.qa.webgl2Verified,false);assert.equal(p.qa.mobileVerified,false);assert.equal(p.rippleContacts.physicallyMeasured,false);});
+
+test("each independently compiled GLSL program contains all tree-intersection helpers",()=>{
+ const extract=id=>b.match(new RegExp('<script id="'+id+'"[^>]*>([\\s\\S]*?)<\\/script>'))?.[1];
+ const main=extract("frag"), particle=extract("particleFrag");
+ assert.ok(main && particle,"both fragment shader sources exist");
+ for(const src of [main,particle]){
+   for(const name of ["trunkBase","trunkHeight","trunkTop","rayCapsule","treeIntersect"]){
+     assert.match(src,new RegExp("(?:vec3|float)\\s+"+name+"\\s*\\("),name+" must be defined in each independent shader");
+   }
+   assert.match(src,/float treeIntersect\(vec3 ro,vec3 rd,out int idx,out int branch\)/);
+ }
+ for(const name of ["trunkBase","trunkHeight","trunkTop","treeIntersect"]){
+   assert.match(particle,new RegExp("(?:vec3|float)\\s+"+name+"\\s*\\("),"particle "+name);
+ }
+});

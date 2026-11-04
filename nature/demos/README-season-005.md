@@ -24,3 +24,14 @@
 3. 保持同鏡位，一鍵切換遮擋關／開，確認樹幹前後層次以及湖面／岸線遮擋。
 4. 測試暫停：漣漪時間也應暫停；關閉粒子應同時取消接觸漣漪。注意失去 WebGL context 時的回復。
 5. 實測不同解析度與手機 GPU，記錄平均及 p95 frame time，與 004 比較；未通過不得發佈為正式效果。
+
+
+## 005 Fix1：粒子 Shader treeIntersect 編譯修復（2026-11-04）
+
+**重現問題：** `ERROR: 0:82: 'treeIntersect' : no matching overloaded function found`。主場景 `frag` 有樹木相交函式，但季節粒子使用獨立的 `particleFrag`，兩個 Shader 程式不共用函式定義。
+
+**修正方式：** 從原版主場景直接複製 `trunkBase`、`trunkHeight`、`trunkTop`、`treeIntersect` 及其使用的共同 `rayCapsule` 依賴，放進 `particleFrag`。原本主場景與水面 Shader、001～004 未更改。
+
+**編譯實測：** 在離屏 EGL / ANGLE OpenGL ES 3.0 環境中，005 Fix1 的主場景頂點／片段以及粒子頂點／片段 Shader 均編譯 PASS；兩組 program link 均 PASS。這是實際 GLSL 編譯，但不等於 Chrome／手機的視覺與 FPS 驗收。
+
+**回歸防護：** 增加 Node 測試，分開解析兩個 fragment shader，確認各自包含完整樹木相交函式。以後不可再把只存在於主場景的 GLSL 函式當成粒子 Shader 可以呼叫。
