@@ -1,0 +1,20 @@
+{
+  "id": "autumn",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "autumn"
+  },
+  "water": {
+    "windMps": 2.5,
+    "waveScale": 0.3
+  },
+  "sky": {
+    "sunElevationDeg": 24,
+    "fogDensity": 0.14
+  },
+  "vegetation": {
+    "autumnMix": 0.84,
+    "snowCover": 0
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "sunset-lake",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "summer",
+    "weather": "clear",
+    "timeOfDay": "dusk"
+  },
+  "water": {
+    "type": "freshwater",
+    "windMps": 2.7,
+    "fetchKm": 2.3,
+    "waveScale": 0.3,
+    "choppiness": 0.12,
+    "reflectionStrength": 0.89,
+    "mineralScattering": 0.19,
+    "tintSRGB": "#336b7e",
+    "allowLongSwell": false,
+    "foamAmount": 0
+  },
+  "sky": {
+    "sunElevationDeg": 7,
+    "sunAzimuthDeg": 257,
+    "haze": 0.3,
+    "cloudCover": 0.3,
+    "fogDensity": 0.12,
+    "colorTemperatureK": 3700
+  },
+  "vegetation": {
+    "foliageDensity": 0.8,
+    "autumnMix": 0,
+    "snowCover": 0,
+    "deadTreeCount": 0
+  },
+  "qa": {
+    "browserVerified": false,
+    "mobileVerified": false,
+    "geoSurveyed": false,
+    "fftIntegrated": false
+  }
+}

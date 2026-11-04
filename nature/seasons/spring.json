@@ -1,0 +1,20 @@
+{
+  "id": "spring",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "spring"
+  },
+  "water": {
+    "windMps": 2.7,
+    "waveScale": 0.3
+  },
+  "sky": {
+    "sunElevationDeg": 28,
+    "fogDensity": 0.12
+  },
+  "vegetation": {
+    "autumnMix": 0,
+    "snowCover": 0
+  }
+}

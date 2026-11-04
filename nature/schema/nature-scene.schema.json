@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nature scene preset",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "status",
+    "conditions",
+    "water",
+    "sky",
+    "vegetation",
+    "qa"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "design",
+        "prototype",
+        "verified"
+      ]
+    },
+    "conditions": {
+      "type": "object",
+      "required": [
+        "season",
+        "weather",
+        "timeOfDay"
+      ]
+    },
+    "water": {
+      "type": "object",
+      "required": [
+        "type",
+        "windMps",
+        "fetchKm",
+        "waveScale",
+        "choppiness",
+        "reflectionStrength",
+        "mineralScattering",
+        "tintSRGB",
+        "allowLongSwell",
+        "foamAmount"
+      ],
+      "properties": {
+        "windMps": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 35
+        },
+        "fetchKm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "waveScale": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "tintSRGB": {
+          "type": "string",
+          "pattern": "^#[a-fA-F0-9]{6}$"
+        }
+      }
+    },
+    "sky": {
+      "type": "object",
+      "required": [
+        "sunElevationDeg",
+        "sunAzimuthDeg",
+        "haze",
+        "cloudCover",
+        "fogDensity",
+        "colorTemperatureK"
+      ]
+    },
+    "vegetation": {
+      "type": "object",
+      "required": [
+        "foliageDensity",
+        "autumnMix",
+        "snowCover",
+        "deadTreeCount"
+      ]
+    },
+    "qa": {
+      "type": "object",
+      "required": [
+        "browserVerified",
+        "mobileVerified",
+        "geoSurveyed",
+        "fftIntegrated"
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "geo-scene-foundry-nature-skills",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node nature/scripts/validate-presets.mjs && node --test nature/tests/*.test.mjs"
+  }
+}

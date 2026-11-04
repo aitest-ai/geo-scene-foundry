@@ -1,0 +1,20 @@
+{
+  "id": "summer",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "summer"
+  },
+  "water": {
+    "windMps": 3,
+    "waveScale": 0.3
+  },
+  "sky": {
+    "sunElevationDeg": 50,
+    "fogDensity": 0.04
+  },
+  "vegetation": {
+    "autumnMix": 0,
+    "snowCover": 0
+  }
+}

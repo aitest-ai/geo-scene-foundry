@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "blue-pond",
+  "version": "0.1.0",
+  "status": "prototype",
+  "conditions": {
+    "season": "summer",
+    "weather": "clear",
+    "timeOfDay": "day"
+  },
+  "water": {
+    "type": "freshwater",
+    "windMps": 2,
+    "fetchKm": 0.3,
+    "waveScale": 0.28,
+    "choppiness": 0.12,
+    "reflectionStrength": 0.82,
+    "mineralScattering": 0.92,
+    "tintSRGB": "#48aeb9",
+    "allowLongSwell": false,
+    "foamAmount": 0
+  },
+  "sky": {
+    "sunElevationDeg": 25,
+    "sunAzimuthDeg": 225,
+    "haze": 0.18,
+    "cloudCover": 0.28,
+    "fogDensity": 0.08,
+    "colorTemperatureK": 7200
+  },
+  "vegetation": {
+    "foliageDensity": 0.8,
+    "autumnMix": 0,
+    "snowCover": 0,
+    "deadTreeCount": 24
+  },
+  "qa": {
+    "browserVerified": false,
+    "mobileVerified": false,
+    "geoSurveyed": false,
+    "fftIntegrated": false
+  }
+}

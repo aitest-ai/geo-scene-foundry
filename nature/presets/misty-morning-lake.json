@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "misty-morning-lake",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "summer",
+    "weather": "misty",
+    "timeOfDay": "dawn"
+  },
+  "water": {
+    "type": "freshwater",
+    "windMps": 1.3,
+    "fetchKm": 1,
+    "waveScale": 0.18,
+    "choppiness": 0.04,
+    "reflectionStrength": 0.62,
+    "mineralScattering": 0.17,
+    "tintSRGB": "#447d86",
+    "allowLongSwell": false,
+    "foamAmount": 0
+  },
+  "sky": {
+    "sunElevationDeg": 6,
+    "sunAzimuthDeg": 110,
+    "haze": 0.68,
+    "cloudCover": 0.63,
+    "fogDensity": 0.7,
+    "colorTemperatureK": 7400
+  },
+  "vegetation": {
+    "foliageDensity": 0.8,
+    "autumnMix": 0,
+    "snowCover": 0,
+    "deadTreeCount": 0
+  },
+  "qa": {
+    "browserVerified": false,
+    "mobileVerified": false,
+    "geoSurveyed": false,
+    "fftIntegrated": false
+  }
+}

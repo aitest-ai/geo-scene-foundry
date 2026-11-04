@@ -1,0 +1,20 @@
+{
+  "id": "winter",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "winter"
+  },
+  "water": {
+    "windMps": 3.1,
+    "waveScale": 0.21
+  },
+  "sky": {
+    "sunElevationDeg": 16,
+    "fogDensity": 0.17
+  },
+  "vegetation": {
+    "autumnMix": 0,
+    "snowCover": 0.68
+  }
+}

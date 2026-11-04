@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "lake-summer",
+  "version": "0.1.0",
+  "status": "design",
+  "conditions": {
+    "season": "summer",
+    "weather": "clear",
+    "timeOfDay": "day"
+  },
+  "water": {
+    "type": "freshwater",
+    "windMps": 4,
+    "fetchKm": 3.5,
+    "waveScale": 0.48,
+    "choppiness": 0.12,
+    "reflectionStrength": 0.73,
+    "mineralScattering": 0.22,
+    "tintSRGB": "#28778a",
+    "allowLongSwell": false,
+    "foamAmount": 0
+  },
+  "sky": {
+    "sunElevationDeg": 48,
+    "sunAzimuthDeg": 225,
+    "haze": 0.13,
+    "cloudCover": 0.14,
+    "fogDensity": 0.025,
+    "colorTemperatureK": 6400
+  },
+  "vegetation": {
+    "foliageDensity": 0.92,
+    "autumnMix": 0,
+    "snowCover": 0,
+    "deadTreeCount": 0
+  },
+  "qa": {
+    "browserVerified": false,
+    "mobileVerified": false,
+    "geoSurveyed": false,
+    "fftIntegrated": false
+  }
+}
