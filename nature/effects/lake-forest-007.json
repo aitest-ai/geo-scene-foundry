@@ -1,0 +1,46 @@
+{
+  "id": "lake-forest-canopy",
+  "version": "0.1.0",
+  "status": "prototype",
+  "baseline": "nature/demos/blue-pond-landscape-006.html",
+  "candidate": "nature/demos/blue-pond-forest-007.html",
+  "waterShaderUnchanged": true,
+  "forest": {
+    "layers": 2,
+    "species": [
+      "evergreen",
+      "larch",
+      "broadleaf"
+    ],
+    "spacingNear": 3.65,
+    "spacingFar": 5.25,
+    "treesEvaluatedPerLayer": 5,
+    "shoreUnderstory": true,
+    "hasSeasonalReflection": true
+  },
+  "controls": {
+    "mainShader": "uForest007",
+    "particleShader": "pForest007",
+    "default": 1,
+    "legacy006Toggle": true
+  },
+  "qa": {
+    "nodeUnitTests": "7/7 local",
+    "mesaGles32ShaderCompileAndLink": "pass",
+    "mesaOffscreenRendering": "pass",
+    "renderer": "llvmpipe software rasterizer",
+    "chromeVerified": false,
+    "mobileVerified": false,
+    "hardwareFPSMeasured": false,
+    "fftIntegrated": false,
+    "geoSurveyed": false
+  },
+  "sha256": {
+    "baseline": "915be75632c3d5755f9670f79ae87a1c98aa67791a9de22d0dad4d4c2e56a441",
+    "candidate": "9e3a562c77e475fb144149d7ddeb972531c26c7e46e4df04142a28de39b7398b"
+  },
+  "references": [
+    "https://www.biei-hokkaido.jp/zh/facility/shirogane-blue-pond",
+    "https://www.visit-hokkaido.jp/tw/spot/detail_10511.html"
+  ]
+}

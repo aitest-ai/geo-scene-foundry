@@ -41,3 +41,9 @@
 - [006 可操作 HTML](nature/demos/blue-pond-landscape-006.html)：修正 005 對岸灰白高牆，加入有界岸坡、低丘、林冠與冬雪斑塊；提供新舊地景同鏡位切換。
 - [自然湖岸共用技能](skills/lake-shore-naturalizer/SKILL.md)／[006 技術文件](nature/demos/README-landscape-006.md)／[參數與 QA](nature/effects/lake-shore-006.json)。
 - 001～005 和原本網站保留；已通過離屏 OpenGL ES 編譯／同鏡位渲染，但未完成 Chrome／手機性能和地理精度驗收。
+
+## 007｜湖岸林相精修（獨立候選）
+
+- [007 程序式湖景](nature/demos/blue-pond-forest-007.html) — 針葉／落葉松／闊葉混合樹冠、林緣矮灌木、秋冬倒影。
+- [共用技能](skills/lake-forest-canopy/SKILL.md)｜[樹種預設](nature/effects/lake-forest-007.json)｜[驗收與限制](nature/demos/README-forest-007.md)。
+- 001～006 和全部既有地圖均保留。GLSL ES 3.20 軟體離屏編譯與渲染通過；實體 GPU／瀏覽器／手機的 FPS 尚未驗收。

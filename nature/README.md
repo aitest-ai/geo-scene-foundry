@@ -19,3 +19,6 @@
 
 - [可重用技能](../skills/lake-shore-naturalizer/SKILL.md)、[完整 WebGL2 實例](demos/blue-pond-landscape-006.html)、[純 JS 岸坡公式](runtime/shore-profile.mjs)。
 - 保留 005 水面、樹木與季節粒子，並新增 005/006 對岸 A/B 切換；本階段仍非真實 DEM 地理還原。
+
+## 007 森林自然化
+[源碼](demos/blue-pond-forest-007.html)、[共用技能](../skills/lake-forest-canopy/SKILL.md)、[純 JS 樹林參數](runtime/forest-007.mjs)；007 只改森林與岸邊植被，不改 006 水面。

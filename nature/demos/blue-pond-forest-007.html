@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>青池之鏡 007 · 季節風與落葉降雪實驗室</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111d24;font-family:system-ui,-apple-system,'Noto Sans TC',sans-serif;color:#eefbf8}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+.overlay{position:fixed;pointer-events:none;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:24px 30px;background:linear-gradient(180deg,rgba(8,25,32,.31),transparent 25%,transparent 75%,rgba(1,17,22,.22))}.heading{display:flex;justify-content:space-between;align-items:start;gap:14px}.eyebrow{font-size:10px;letter-spacing:.23em;color:#b1ebe6;font-weight:650}.heading h1{margin:9px 0 4px;font-size:clamp(22px,3vw,38px);font-weight:500;letter-spacing:.13em;text-shadow:0 1px 12px #15252c}.sub{font-size:11px;letter-spacing:.07em;opacity:.78}.top-note{font-size:11px;text-align:right;opacity:.8;line-height:1.7}.bottom{display:flex;justify-content:space-between;gap:18px;align-items:flex-end}.credit{font-size:10px;opacity:.76;line-height:1.7;max-width:340px}.credit a{color:#d4faff;pointer-events:auto}.controls{pointer-events:auto;background:rgba(9,32,39,.65);border:1px solid rgba(194,255,242,.22);backdrop-filter:blur(16px);border-radius:16px;padding:15px 17px;min-width:min(420px,96vw);box-shadow:0 6px 35px rgba(4,21,28,.19)}.tabs{display:flex;gap:6px;margin-bottom:13px}.tab{flex:1;cursor:pointer;border:1px solid rgba(232,255,249,.2);border-radius:9px;padding:10px 7px;background:rgba(255,255,255,.055);color:#d7efee;font:500 12px system-ui}.tab.active{background:#e1f7ef;color:#12404a;border-color:#e1f7ef}.opts{display:grid;grid-template-columns:1fr 1fr;gap:13px}.opts label{display:flex;gap:5px;justify-content:space-between;font-size:11px;color:#cae0dd}.opts strong{color:#fff;font-weight:500}input[type=range]{accent-color:#a4eadc;width:100%;cursor:pointer;margin-top:8px}.status{display:flex;justify-content:space-between;gap:16px;margin-top:10px;color:#bad1d1;font-size:10px}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#92ead9;margin-right:6px}.controls button:focus-visible{outline:2px solid #fff;outline-offset:2px}.error{position:fixed;inset:auto 20px 20px;z-index:5;background:#500d1c;border:1px solid #fc9;padding:15px;border-radius:9px;display:none}
+@media(max-width:670px){.overlay{padding:16px 13px 12px}.top-note{display:none}.bottom{flex-direction:column;align-items:stretch}.heading h1{font-size:25px}.credit{display:none}.controls{min-width:0;width:100%;padding:12px}.tab{font-size:11px;padding:9px 4px}.opts{gap:10px}.status{font-size:9px}}
+
+#seasonlab{position:fixed;top:108px;right:22px;width:318px;padding:14px 17px;z-index:8;
+  background:rgba(6,29,35,.73);border:1px solid rgba(194,255,242,.23);border-radius:14px;backdrop-filter:blur(16px);font:12px/1.5 system-ui,sans-serif;color:#e7f6f3}
+#seasonlab .labtitle{font-weight:700;letter-spacing:.06em;margin-bottom:7px;color:#daf9f1}
+#seasonlab .labgroup{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:8px}
+#seasonlab button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#dbe8e6;padding:8px 3px;font-size:11px;cursor:pointer}
+#seasonlab button.chosen{background:#cbece4;color:#153e41;border-color:#cbece4;font-weight:700}
+#seasonlab .comparebar{display:flex;gap:8px;align-items:center;margin-bottom:7px;font-size:10px;color:#bed8d4}
+#seasonlab .comparebar button{flex:none;padding:6px 9px;border-color:#8eb7b3}
+#seasonlab .comparebar button[aria-pressed="true"]{background:#e3f4de;color:#153e41}
+#seasonlab .atmoctrl {margin:6px 0 9px}#seasonlab .atmoctrl label{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:#d6efea}
+#seasonlab .atmoctrl input{width:100%;margin-top:4px;accent-color:#ccebc9}
+#seasonlab .effectbar{display:flex;gap:7px;align-items:center;margin-bottom:8px}
+#seasonlab .effectbar button{flex:1;min-height:33px;border-color:#8eb7b3}
+#seasonlab .effectbar button[aria-pressed="false"]{color:#a0bcb8;background:rgba(0,0,0,.24)}
+#seasonlab .labnote{font-size:10px;color:#c5d9d7;line-height:1.5}
+@media(max-width:670px){#seasonlab{top:87px;right:12px;left:12px;width:auto;padding:8px 12px}
+#seasonlab .labgroup{margin-bottom:4px}#seasonlab .effectbar button{font-size:10px;padding:5px 2px}#seasonlab{max-height:calc(100dvh - 245px);overflow:auto}#seasonlab .labnote{display:none}#seasonlab button{padding:6px 3px}}
+#contactlab{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+#contactlab button{border:1px solid rgba(215,255,248,.28);padding:7px 10px;border-radius:8px;background:rgba(3,20,29,.48);color:#dceee8;cursor:pointer}
+#contactlab button[aria-pressed="true"]{background:#d0eee8;color:#15434d;font-weight:650}
+#contactlab .stat{font-size:10px;color:#c6dad9;white-space:nowrap}
+@media(max-width:670px){#contactlab button{font-size:10px;padding:5px 8px}}
+
+.landscape-compare{border-top:1px solid rgba(185,224,219,.18);padding-top:10px;margin-top:8px;display:flex;align-items:center;gap:8px}
+.landscape-compare button{flex:0 0 auto;background:#d7efe4!important;color:#123e3d!important;padding:7px 10px!important;font-size:10px!important;font-weight:700}
+.landscape-compare span{font-size:10px;color:#badbd6;line-height:1.3}
+@media(max-width:670px){.landscape-compare{padding-top:5px;margin-top:4px}.landscape-compare span{display:none}}
+
+.forest-compare{border-top:1px solid rgba(185,224,219,.18);margin-top:7px;padding-top:8px;display:flex;align-items:center;gap:8px}
+.forest-compare button{flex:0 0 auto;background:#cfecdc!important;color:#153f34!important;font-size:10px!important;font-weight:700;padding:7px 9px!important}
+.forest-compare span{color:#c6dfda;font-size:10px;line-height:1.4}
+@media(max-width:670px){.forest-compare span{display:none}.forest-compare{padding:6px 0 0;margin-top:5px}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-label="即時 3D 青池風湖面，可拖曳旋轉視角"></canvas>
+<div class="overlay">
+ <div class="heading"><div><div class="eyebrow">BIEI · NATURE STUDY / 007</div><h1>青池之鏡</h1><div class="sub">風、礦物青藍、枯立木與柔和倒影</div></div><div class="top-note">秋葉飄落・冬雪漂浮・季節反射 · 既有地圖不動<br>拖曳旋轉視角 · 滾輪調整高度</div></div>
+ <div class="bottom"><div class="credit">程序式 GPU 湖景光學實驗，不是美瑛青池測繪成果。<br>湖色、枯木與森林皆為示意；水面採動態多尺度波浪，非 FFT 引擎直接移植。<br>春夏秋冬與天氣效果為程序式示意，非已通過真實照片比對。原始高品質海洋技術參照 <a href="https://github.com/Leonxlnx/open-water" target="_blank" rel="noopener">Leonxlnx / Open Water</a> (MIT)。</div>
+ <div class="controls"><div class="tabs" role="tablist"><button class="tab active" data-mode="0" role="tab" aria-selected="true">靜謐青池</button><button class="tab" data-mode="1" role="tab" aria-selected="false">微風湖面</button><button class="tab" data-mode="2" role="tab" aria-selected="false">風起湖面</button></div>
+ <div class="opts"><div><label for="wind">風力 <strong id="windVal">0.25</strong></label><input id="wind" type="range" min="0" max="1.5" step="0.01" value="0.25"></div><div><label for="turq">礦物青藍 <strong id="turqVal">0.92</strong></label><input id="turq" type="range" min="0" max="1" step="0.01" value="0.92"></div></div>
+ <div class="status"><span><span class="dot"></span><span id="status">啟動 GPU 湖面渲染…</span></span><span id="fps">— FPS</span></div></div></div>
+</div>
+<section id="seasonlab" aria-label="季節與自然場景切換">
+ <div class="labtitle">季節／Season</div><div class="labgroup">
+ <button data-season="0">春</button><button class="chosen" data-season="1">夏</button><button data-season="2">秋</button><button data-season="3">冬</button></div>
+ <div class="labtitle">自然景色／Scene</div><div class="labgroup">
+ <button class="chosen" data-scene="blue">青池</button><button data-scene="summer">夏湖</button><button data-scene="mist">薄霧</button><button data-scene="sunset">夕照</button></div>
+ <div class="comparebar"><button id="beforeAfter" aria-pressed="false">比較：002 舊效果</button><span id="compareDesc">003 森林／岸雪強化</span></div>
+ <div class="atmoctrl"><label for="particles">季節粒子強度 <strong id="particlesVal">0.65</strong></label><input id="particles" type="range" min="0" max="1" step="0.05" value="0.65" aria-label="落葉與降雪粒子強度"/></div>
+ <div class="effectbar"><button id="effectToggle" aria-pressed="true">季節粒子開啟</button><button id="pauseMotion" aria-pressed="false">暫停動畫</button></div>
+ <div id="contactlab" aria-label="接觸與遮擋測試">
+   <button id="occlusionToggle" aria-pressed="true">005 遮擋：開</button>
+   <button id="rippleToggle" aria-pressed="true">接觸漣漪：開</button>
+   <span class="stat" id="impactInfo">湖面漣漪 0 / 12</span>
+ </div>
+ <div class="landscape-compare" aria-label="對岸地形前後比較">
+ <button id="landscapeToggle" type="button" aria-pressed="false">對岸：006 自然樹林／緩坡</button>
+ <span id="landscapeDescription">保留 005 湖水，006 地形與 007 林相分離控制</span>
+</div>
+<div class="forest-compare" aria-label="007 森林新舊比較">
+ <button id="forestToggle" type="button" aria-pressed="false">森林：007 混合樹冠／岸草</button>
+ <span id="forestDescription">006 地形保留・針闊葉樹群與矮灌木</span>
+</div>
+<div class="labnote">005：粒子透過相同樹幹、地形與波面距離進行遮擋；接觸湖面出現短暫細波。仍無葉片堆積、冰面碰撞或 FFT。</div>
+</section>
+<div id="error" class="error"></div>
+<script id="vert" type="x-shader/x-vertex">#version 300 es
+in vec2 position;out vec2 vUv;void main(){vUv=position*.5+.5;gl_Position=vec4(position,0,1);}
+</script>
+<script id="frag" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+in vec2 vUv;out vec4 fragColor;
+uniform vec2 uResolution;uniform float uTime;uniform float uWind;uniform float uTurq;uniform float uYaw;uniform float uHeight;uniform float uPitch;uniform float uSeason;uniform float uFog;uniform float uSunWarmth;uniform float uDetail;uniform float uLandscape;uniform float uForest007;uniform vec4 uImpacts[12];uniform float uRippleEnabled;
+const float PI=3.141592653589793;
+float hash(float n){return fract(sin(n*127.1+78.233)*43758.5453);}
+float hash2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 x){vec2 i=floor(x),f=fract(x); f=f*f*(3.-2.*f);return mix(mix(hash2(i),hash2(i+vec2(1,0)),f.x),mix(hash2(i+vec2(0,1)),hash2(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 x){float a=.5,s=0.;for(int i=0;i<4;i++){s+=noise(x)*a;x*=2.01;a*=.5;}return s;}
+float wave(vec2 p,float t){float w=max(uWind,.02);vec2 q=mat2(.85,-.53,.53,.85)*p;
+ float h=0.;
+ h+=.075*sin(p.x*.65 + p.y*.23-t*.69)*w;
+ h+=.033*sin(q.x*1.52+q.y*.7-t*1.11)*w;
+ h+=.020*sin(p.x*2.75-p.y*1.5+t*1.82)*w;
+ h+=.010*sin(q.y*5.1+q.x*1.2-t*2.2)*w;
+ h+=.006*sin(p.x*9.3+p.y*2.2+t*3.1)*w;
+ return h;}
+vec3 waveN(vec2 p,float t){float e=.045;float a=wave(p+vec2(e,0),t)-wave(p-vec2(e,0),t);float b=wave(p+vec2(0,e),t)-wave(p-vec2(0,e),t);return normalize(vec3(-a/(2.*e),1.,-b/(2.*e)));}
+float segment(vec3 p,vec3 a,vec3 b){vec3 ba=b-a;float h=clamp(dot(p-a,ba)/dot(ba,ba),0.,1.);return length(p-a-ba*h);}
+float rayCapsule(vec3 ro,vec3 rd,vec3 pa,vec3 pb,float ra){vec3 ba=pb-pa,oa=ro-pa;float baba=dot(ba,ba),bard=dot(ba,rd),baoa=dot(ba,oa),rdoa=dot(rd,oa),oaoa=dot(oa,oa);float aa=baba-bard*bard,bb=baba*rdoa-baoa*bard,cc=baba*oaoa-baoa*baoa-ra*ra*baba;float h=bb*bb-aa*cc;if(h>=0.&&aa>0.00001){float t=(-bb-sqrt(h))/aa;float y=baoa+t*bard;if(y>0.&&y<baba&&t>0.)return t;}float minT=1e7;for(int k=0;k<2;k++){vec3 q=k==0?pa:pb;vec3 oc=ro-q;float b=dot(oc,rd),c=dot(oc,oc)-ra*ra,h=b*b-c;if(h>=0.){float t=-b-sqrt(h);if(t>0.)minT=min(minT,t);}}return minT;}
+float shoreline(float x){return -29.0+1.35*sin(x*.14)+.7*sin(x*.49);}
+float shoreHeight(vec2 xz){float sd=shoreline(xz.x)-xz.y;if(sd<0.)return -8.;
+ float winter=smoothstep(2.15,2.95,uSeason)*uDetail;
+ // Preserve the faulty 005 bank only for explicit same-camera A/B comparison.
+ if(uLandscape<.5){float base=.8+sd*.21+1.3*fbm(xz*.067);
+  float crest=smoothstep(.3,3.0,sd)*(.10+.19*fbm(xz*.37));
+  return base+winter*crest;}
+ // 006: bounded terrain, a gentle wet shore -> undulating bank -> low wooded rise.
+ // Crucially: no unbounded +0.21*distance rise (the grey cliff in 005).
+ float n=noise(xz*.085+vec2(4.8,-1.7));
+ float band=.16+1.28*smoothstep(0.,11.,sd)+1.42*smoothstep(11.,37.,sd)
+          +.80*smoothstep(35.,75.,sd);
+ band+=(n-.5)*(.30+.70*smoothstep(6.,45.,sd));
+ float drift=(.08+.11*noise(xz*.27))*winter*smoothstep(1.2,9.,sd);
+ return max(.04,band+drift);
+}
+vec3 sky(vec3 rd){float s=max(rd.y,-.24);float h=clamp((s+.05)*1.45,0.,1.);
+ vec3 low=mix(vec3(.72,.84,.84),vec3(.99,.72,.54),uSunWarmth*.52),high=mix(vec3(.15,.36,.48),vec3(.43,.36,.44),uSunWarmth*.33);vec3 col=mix(low,high,pow(h,.74));
+ float cloud=fbm(rd.xz*4.0/(.22+max(rd.y,.04))+vec2(uTime*.0009,.22));
+ float cloudMask=smoothstep(.60,.72,cloud)*.44*clamp(rd.y*5.,0.,1.);
+ col=mix(col,vec3(.93,.965,.95),cloudMask);
+ vec3 sun=normalize(vec3(.48,.32,-.84));float glow=pow(max(dot(rd,sun),0.),12.);col+=vec3(.40,.39,.26)*glow*.12;
+ return col;}
+vec3 trunkBase(int i){float f=float(i),s=hash(f*18.27);float x=-18.+f*1.72+(s-.5)*2.4;float z=-4.4-hash(f*2.73+3.)*18.0;return vec3(x,-.35,z);}
+float trunkHeight(int i){return 5.1+hash(float(i)*6.18+1.4)*7.9;}
+vec3 trunkTop(int i){vec3 a=trunkBase(i);float h=trunkHeight(i);return a+vec3((hash(float(i)*1.38)-.5)*1.05,h,(hash(float(i)*2.72)-.5)*.65);}
+float treeIntersect(vec3 ro,vec3 rd,out int idx,out int branch){float minT=1e7;idx=-1;branch=0;
+ for(int i=0;i<24;i++){vec3 a=trunkBase(i),b=trunkTop(i);vec3 mid=(a+b)*.5;float tt=dot(mid-ro,rd);if(tt<-5.||length(ro+rd*tt-mid)>trunkHeight(i)*.56+2.9)continue;float rad=.13+hash(float(i)*3.72)*.14;float t=rayCapsule(ro,rd,a,b,rad);if(t<minT){minT=t;idx=i;branch=0;}
+ for(int k=0;k<2;k++){float f=float(k),frac=.35+.27*f+hash(float(i)*3.1+f)*.18;vec3 at=mix(a,b,frac);vec3 end=at+vec3((hash(float(i)*5.2+f*8.9)-.5)*4.5,1.1+hash(float(i)*6.2+f)*1.8,(hash(float(i)*3.2+f*4.9)-.5)*2.4);float bt=rayCapsule(ro,rd,at,end,rad*.37);if(bt<minT){minT=bt;idx=i;branch=k+1;}}
+ }
+ return minT;}
+// Forest-wall silhouette on the far shoreline with procedural tree crowns.
+float forestHeight(float x){float g=floor(x/3.25),r=fract(x/3.25),h=5.0+hash(g*2.37)*8.5;float width=abs(r-.48);float can=clamp(1.-width*2.,0.,1.);float serr=.3*(noise(vec2(g,r*11.))-.5);return h*max(.15,can)+serr;}
+vec3 forestColor(vec3 p){float q=fbm(p.xz*.31+vec2(p.y*.12,0));float lit=clamp(.55+.42*noise(vec2(p.x*.6,p.y*.7)),0.,1.);vec3 c=mix(vec3(.055,.13,.13),vec3(.28,.41,.29),lit*.64+q*.36);
+ float au=smoothstep(1.,2.,uSeason)*(1.-smoothstep(2.,3.,uSeason));
+ float wi=smoothstep(2.,3.,uSeason);float sp=1.-smoothstep(0.,1.,uSeason);
+ c=mix(c,vec3(.42,.29,.13)*(.62+.55*lit),au*.86);
+ c=mix(c,vec3(.59,.68,.65)*(.72+.39*lit),wi*.80);
+ c=mix(c,vec3(.17,.39,.23),sp*.27);return c;}
+// Seeded clusters rather than the 002 repeated triangular 3.25 m forest silhouette.
+// Each stratum has different spacing, height, width, genus and depth-dependent haze.
+
+// 007: seeded mixed larch/evergreen broadleaf stand; no flat triangular billboard row.
+// Kept identical in scene and independent particle fragment shaders for occlusion.
+vec4 grove007(vec3 p,float depth,float season){
+ float spacing=depth<.5?3.65:5.25,cell=floor(p.x/spacing);
+ float alpha=0.,weightSum=0.;vec3 pigment=vec3(0.);
+ float au=smoothstep(1.12,1.92,season)*(1.-smoothstep(2.08,2.94,season));
+ float winter=smoothstep(2.15,2.96,season);
+ for(int k=-2;k<=2;k++){
+  float id=cell+float(k),seed=id*17.73+depth*113.2;
+  float cx=(id+.5)*spacing+(hash(seed+3.4)-.5)*spacing*.62;
+  float y0=shoreHeight(vec2(cx,-33.-8.*depth));
+  float ht=mix(7.0,16.0,hash(seed+11.7))*(1.-depth*.14);
+  float wd=mix(1.5,3.25,hash(seed+5.2))*(1.+.1*depth);
+  if(abs(p.x-cx)>wd*1.43||p.y<y0-.45||p.y>y0+ht+.6)continue;
+  float q=clamp((p.y-y0)/ht,0.,1.),dx=(p.x-cx)/wd;
+  float species=hash(seed+17.5),conifer=step(.39,species);
+  // Three overlapping, asymmetric deciduous lobes.
+  // Break the clean circular crowns into uneven smaller foliage masses.
+  float turn=atan(q-.69,dx),fringe=.065*sin(turn*7.+seed)+.042*sin(turn*13.-seed*.61);
+  float dx2=dx+.065*sin(q*23.+seed)*sin(dx*10.+seed*.73);
+  float bow1=1.-smoothstep(.87+fringe,1.03+fringe,length(vec2(dx2/.92,(q-.68)/.29)));
+  float bow2=1.-smoothstep(.88+fringe*.68,1.07+fringe*.68,length(vec2((dx2-.42)/.60,(q-.66)/.24)));
+  float bow3=1.-smoothstep(.86-fringe*.51,1.06-fringe*.51,length(vec2((dx2+.38)/.58,(q-.71)/.22)));
+  float broad=max(bow1,max(bow2,bow3));
+  // Natural larch / spruce branch shelves: irregular outline, not a uniform cone.
+  float taper=pow(max(0.,1.-q),.77)*smoothstep(.025,.15,q);
+  float branch=(.88+.095*sin(q*36.+seed)+.065*sin(q*61.+seed*1.3));
+  float radius=taper*branch*(.90+.13*noise(p.xy*.24+vec2(seed*.017,depth)));
+  float pine=(1.-smoothstep(radius-.065,radius+.075,abs(dx)))*(1.-smoothstep(.965,1.01,q));
+  float stem=(1.-smoothstep(.028,.095,abs(dx)))*smoothstep(0.,.055,q)*(1.-smoothstep(.93,1.0,q));
+  float foliage=mix(broad,pine,conifer);
+  // Some needle-bearing larches lose foliage in winter, evergreen spruce remains.
+  float larch=conifer*step(.76,hash(seed+1.8));
+  foliage*=1.-winter*(.91*(1.-conifer)+.74*larch);
+  float cov=clamp(max(foliage,stem*.57),0.,1.);
+  if(cov<.008)continue;
+  float n=noise(p.xy*.44+vec2(seed*.021,depth*9.));
+  vec3 foliageGreen=mix(vec3(.048,.135,.12),vec3(.23,.37,.23),clamp(.25+hash(seed+2.7)*.44+n*.40,0.,1.));
+  vec3 autumnCol=mix(vec3(.43,.29,.095),vec3(.78,.48,.18),hash(seed+22.3));
+  autumnCol=mix(autumnCol,vec3(.55,.19,.11),step(.79,hash(seed+8.7))*.42);
+  vec3 col=mix(foliageGreen,autumnCol,au*(1.-conifer*.63)+au*larch*.36);
+  col=mix(col,vec3(.32,.30,.23),winter*(1.-conifer)*.42);
+  col=mix(col,vec3(.64,.70,.67),winter*conifer*(.07+.17*n));
+  // Exposed branches turn woody instead of inheriting leaf color.
+  col=mix(col,vec3(.27,.27,.23),stem*(1.-foliage)*(.72+.24*winter));
+  col*=.78+.27*n+.08*sin(q*16.+seed);
+  float w=cov*(1.-alpha);pigment+=col*w;weightSum+=w;alpha+=w;
+ }
+ return vec4(pigment/max(weightSum,.0001),clamp(alpha,0.,1.));
+}
+// Small shrubs and uneven shoreline tussocks, shared with the particle occluder.
+float understory007(vec3 p,float depth){
+ float ground=shoreHeight(p.xz),cell=floor(p.x/2.85),cover=0.;
+ for(int k=-1;k<=1;k++){
+  float id=cell+float(k),seed=id*11.39+depth*91.8;
+  float x=(id+.44)*2.85+(hash(seed+2.3)-.5)*1.7;
+  float h=.67+1.45*hash(seed+9.1),w=.65+.85*hash(seed+4.4);
+  float dx=(p.x-x)/w,dy=(p.y-ground-h*.53)/(h*.55);
+  float shape=1.-smoothstep(.79,1.07,length(vec2(dx,dy))*(.89+.10*sin(p.y*7.+seed)));
+  cover=max(cover,shape*step(.26,hash(seed+6.3)));
+ }
+ return clamp(cover,0.,1.);
+}
+
+vec4 woodland(vec3 p,float depth){
+ float spacing=depth<0.5?4.25:5.75;
+ float cell=floor(p.x/spacing);
+ float alpha=0.;vec3 pigment=vec3(0.);float wt=0.;
+ float autumn=smoothstep(1.12,1.92,uSeason)*(1.-smoothstep(2.03,2.94,uSeason));
+ float winter=smoothstep(2.15,2.96,uSeason);
+ for(int k=-2;k<=2;k++){
+  float id=cell+float(k),seed=id*12.67+depth*148.9;
+  float cx=(id+.48)*spacing+(hash(seed+3.3)-.5)*spacing*.77;
+  float y0=shoreHeight(vec2(cx,-31.4-8.*depth));
+  float ht=mix(6.5,15.2,hash(seed+7.));
+  float ww=mix(1.9,3.8,hash(seed+11.))*(1.+.15*depth);
+  if(abs(p.x-cx)>ww+1.2||p.y<y0-.5||p.y>y0+ht+1.0)continue;
+  float conifer=step(.59,hash(seed+5.));
+  // Rounded uneven deciduous crown, or layered pine silhouette.
+  vec2 d=vec2((p.x-cx)/ww,(p.y-(y0+ht*.68))/(ht*.39));
+  float ell=length(d)*(.92+.12*fbm(p.xy*.31+seed));
+  float roundCrown=1.-smoothstep(.86,1.04,ell);
+  float coneD=abs(p.x-cx)/max(.32,ww*(.16+.86*clamp((y0+ht-p.y)/(ht*.78),0.,1.)));
+  float pine=(1.-smoothstep(.78,1.07,coneD))*smoothstep(y0+.4,y0+1.6,p.y)*(1.-smoothstep(y0+ht-.3,y0+ht+.5,p.y));
+  float bareTrunk=(1.-smoothstep(.08,.18,abs(p.x-cx)))*smoothstep(y0,y0+.25,p.y)*(1.-smoothstep(y0+ht-.4,y0+ht,p.y));
+  float canopy=mix(roundCrown,pine,conifer);
+  float coverage=mix(canopy, max(pine*conifer,bareTrunk*.63),winter*.9);
+  float r=hash(seed+13.1),n=fbm(p.xy*.22+vec2(seed*.07,depth));
+  vec3 green=mix(vec3(.07,.19,.15),vec3(.26,.41,.25),clamp(.3+r*.43+n*.22,0.,1.));
+  vec3 fall=mix(vec3(.43,.25,.095),vec3(.72,.39,.14),r);
+  fall=mix(fall,vec3(.47,.18,.12),smoothstep(.53,.85,r)*.65);
+  vec3 col=mix(green,fall,autumn*(1.-conifer*.68));
+  vec3 snowTint=mix(vec3(.35,.43,.38),vec3(.76,.81,.76),clamp(.25+n*.43,0.,1.));
+  col=mix(col,snowTint,winter*(conifer*.34+(1.-conifer)*.56));
+  float colorLight=clamp(.7+.40*n+.16*sin(p.y*1.71+seed),.5,1.2);
+  col*=colorLight;
+  float weight=coverage*(1.-alpha);
+  pigment+=col*weight;wt+=weight;alpha+=weight;
+ }
+ return vec4(pigment/max(wt,.001),clamp(alpha,0.,1.));
+}
+// 006: low wooded foothills, drawn as distant irregular ridges instead of a tall snow wall.
+float ridgeHeight(float x,float depth){
+ float n=noise(vec2(x*.023+depth*3.1,depth*13.4));
+ return mix(13.,24.,depth)+3.2*sin(x*.032+depth*1.7)
+   +1.9*sin(x*.089+depth*2.1)+5.3*(n-.5);
+}
+vec3 ridgeTone(vec3 p,float depth){
+ float n=noise(p.xz*.092+vec2(p.y*.06,depth*8.));
+ float autumn=smoothstep(1.15,1.95,uSeason)*(1.-smoothstep(2.1,2.95,uSeason));
+ float winter=smoothstep(2.2,2.98,uSeason);
+ vec3 evergreen=mix(vec3(.13,.28,.26),vec3(.24,.38,.34),n);
+ evergreen=mix(evergreen,vec3(.35,.33,.24),autumn*.27);
+ // Winter mountains stay wooded/grey, with snow as *patches*, not one white facade.
+ float pockets=smoothstep(.46,.70,noise(p.xz*.24+vec2(3.,7.))+.09*p.y/24.);
+ evergreen=mix(evergreen,vec3(.61,.68,.68),winter*pockets*.28);
+ return mix(evergreen,vec3(.40,.54,.59),depth*.31);
+}
+float forestBaseMask(vec3 p,float depth){
+ float gh=shoreHeight(p.xz);
+ // Dense overlapping low canopy; subtle uneven outline rather than identical triangles.
+ float coarse=noise(vec2(p.x*.11+depth*7.3,depth*11.1));
+ float fine=noise(vec2(p.x*.38+depth*2.8,depth*5.9));
+ float h=4.5+3.9*coarse+1.55*fine;
+ return smoothstep(gh-.3,gh+.85,p.y)*(1.-smoothstep(gh+h-.7,gh+h+.6,p.y));
+}
+vec3 bankTone(vec3 p){
+ float a=noise(p.xz*.14),b=noise(p.xz*.47+vec2(7.,2.));
+ float sd=max(0.,shoreline(p.x)-p.z);
+ vec3 soil=mix(vec3(.08,.20,.17),vec3(.24,.34,.25),.33+.54*a);
+ soil*=.88+.24*b;
+ soil=mix(vec3(.11,.25,.23),soil,smoothstep(.2,3.2,sd));
+ float au=smoothstep(1.1,1.94,uSeason)*(1.-smoothstep(2.04,2.96,uSeason));
+ soil=mix(soil,vec3(.27,.28,.17),au*.23);
+ float wi=smoothstep(2.15,2.96,uSeason);
+ // Compact snow pockets on slopes, but keep soil and evergreen shadows visible.
+ float mask=smoothstep(.49,.74,a*.69+b*.31+.04*p.y)*smoothstep(.9,4.5,sd);
+ return mix(soil,vec3(.66,.75,.73)*(.87+.16*b),wi*mask*.63);
+}
+vec3 environment(vec3 ro,vec3 rd){vec3 sc=sky(rd);
+ if(uLandscape>.5 && rd.z<-.008){
+  // Far-to-near hills, behind all shoreline trees, with aerial perspective.
+  for(int layer=1;layer>=0;layer--){
+    float depth=float(layer),zz=-137.-80.*depth;
+    float t=(zz-ro.z)/rd.z;
+    if(t<=0.||t>900.)continue;
+    vec3 p=ro+rd*t;float h=ridgeHeight(p.x,depth);
+    float cover=1.-smoothstep(h-.7,h+.8,p.y);
+    vec3 ridge=ridgeTone(p,depth);
+    float haze=clamp(.22+depth*.27+uFog*.28,0.,.85);
+    sc=mix(sc,mix(ridge,sky(rd),haze),cover*(.88-depth*.08));
+  }
+ }
+
+ // 002 compare mode is fully preserved for same-camera A/B.
+ if(uDetail<.5){float zz=-31.5;if(rd.z<-.01){float t=(zz-ro.z)/rd.z;if(t>0.){vec3 p=ro+t*rd;float gh=shoreHeight(p.xz);float fh=forestHeight(p.x);if(p.y<gh+fh&&p.y>gh-1.){float n=noise(p.xy*2.3);vec3 fc=forestColor(p);float edge=clamp((p.y-gh)/max(fh,.1),0.,1.);sc=mix(fc,sc,smoothstep(.94,1.06,edge)*.25);}else if(p.y<gh){sc=mix(vec3(.22,.32,.27),vec3(.39,.43,.34),noise(p.xz*.2)*.55);}float distFog=1.-exp(-t*(.0035+uFog*.045));sc=mix(sc,sky(rd),distFog*(.40+uFog*.45));}}return sc;}
+ for(int layer=1;layer>=0;layer--){
+  float depth=float(layer),zz=-33.-8.*depth;
+  if(rd.z>=-.006)continue;
+  float t=(zz-ro.z)/rd.z;
+  if(t<=0.||t>700.)continue;
+  vec3 p=ro+t*rd;float gh=shoreHeight(p.xz);
+  vec4 f;
+  if(uLandscape>.5&&uForest007>.5)f=grove007(p,depth,uSeason);
+  else f=woodland(p,depth);
+  float ground=1.-smoothstep(gh-.4,gh+.38,p.y);
+  float baseF=uLandscape>.5?(uForest007>.5?understory007(p,depth):forestBaseMask(p,depth)):0.;
+  vec3 soil=uLandscape>.5?bankTone(p):mix(vec3(.13,.25,.20),vec3(.26,.33,.22),fbm(p.xz*.19));
+  if(uLandscape<.5)soil=mix(soil,vec3(.72,.78,.74),smoothstep(2.15,2.95,uSeason)*smoothstep(.4,1.4,p.y-gh+.9)*.68);
+  float alpha=max(ground,max(f.a,baseF));
+  // The evergreen tree layer covers snow/soil; snow does not form a flat cutout wall.
+  float autumn=smoothstep(1.12,1.93,uSeason)*(1.-smoothstep(2.03,2.92,uSeason));
+  float winter=smoothstep(2.17,2.95,uSeason);
+  vec3 baseGreen=mix(vec3(.070,.17,.15),vec3(.19,.31,.22),noise(p.xy*.18+depth*3.));
+  baseGreen=mix(baseGreen,vec3(.27,.26,.15),autumn*.30);
+  baseGreen=mix(baseGreen,vec3(.16,.24,.24),winter*.45);
+  vec3 forestMix=mix(baseGreen,f.rgb,clamp(f.a*.80,0.,1.));
+  float canopy=clamp(max(f.a,baseF)*1.05,0.,1.);
+  vec3 col=mix(soil,forestMix,canopy);
+  float fog=1.-exp(-t*(.0025+uFog*.038));
+  col=mix(col,sky(rd),clamp(fog*(.30+uFog*.45),0.,.84));
+  sc=mix(sc,col,alpha*(1.-depth*.20));
+ }
+ return sc;
+}
+// Limited branch samples for reflection to keep performance stable.
+vec3 treeShade(vec3 p,int idx,int br,vec3 rd){float n=fbm(vec2(p.y*.72,p.x*3.4));float stripes=sin(p.y*12.+hash(float(idx))*13.0+p.x*42.);
+ vec3 pale=vec3(.39,.37,.33),lit=vec3(.68,.65,.56);vec3 c=mix(pale,lit,.40+.27*stripes+.23*n);
+ if(br>0)c*=.78;float rim=clamp(dot(-rd,normalize(vec3(.35,.65,.28))),0.,1.);return c*(.82+.2*rim);}
+vec3 reflectScene(vec3 ro,vec3 rd){vec3 c=environment(ro,rd);int ti,br;float t=treeIntersect(ro,rd,ti,br);if(t<150.&&ti>=0){vec3 hit=ro+rd*t;c=mix(treeShade(hit,ti,br,rd),c,1.-exp(-t*.014));}return c;}
+
+// 005: muted short-lived ring slopes from actual deterministic particle contact events.
+// Impacts are generated in JS from the same 004 particle seeds; not a fluid simulation.
+vec2 impactGradient(vec2 p){
+ if(uRippleEnabled<.5)return vec2(0.);
+ vec2 grad=vec2(0.);
+ for(int i=0;i<12;i++){
+  vec4 hit=uImpacts[i];float age=hit.z;
+  if(hit.w<.001||age<0.||age>2.25)continue;
+  vec2 rel=p-hit.xy;float dist=length(rel);
+  float ring=dist-(.10+age*1.3);
+  float narrow=exp(-ring*ring*14.)*exp(-age*1.15);
+  grad+=(rel/max(dist,.05))*(.020*hit.w*narrow*cos(18.*ring));
+ }
+ return grad;
+}
+vec3 shadeWater(vec3 ro,vec3 rd,vec3 p,vec3 n){vec2 g=impactGradient(p.xz);n=normalize(n+vec3(-g.x,0.,-g.y));float v=max(dot(-rd,n),0.);float f=.020+(.98)*pow(1.-v,5.);vec3 refl=reflectScene(p+n*.04,reflect(rd,n));
+ float facing=clamp(1.-v,0.,1.);float cloudy=clamp(sky(reflect(rd,n)).g,0.,1.);
+ vec3 mineral=mix(vec3(.052,.30,.305),vec3(.055,.62,.66),uTurq);mineral=mix(mineral,vec3(.15,.31,.35),smoothstep(2.,3.,uSeason)*.30);
+ float low=clamp((p.z+29.)/30.,0.,1.);float shallow=1.-smoothstep(0.,.67,low);
+ mineral=mix(mineral,vec3(.22,.71,.69),shallow*.29*uTurq);
+ // Natural milkiness from suspended colloidal minerals, not a photographic reference measurement.
+ vec3 under=mineral*(.74+.19*cloudy)+vec3(.08,.11,.095)*pow(v,.85);
+ vec3 col=mix(under,refl,clamp(f*.98+.13*(1.-uWind*.4),0.,.95));
+ vec3 sun=normalize(vec3(.48,.32,-.84));float sunGlint=pow(max(dot(reflect(-sun,n),-rd),0.),max(25.,460.-uWind*160.));
+ col+=vec3(1.,.94,.72)*sunGlint*.25*clamp(uWind,0.,1.);
+ vec3 glitterN=normalize(n+vec3(.008*noise(p.xz*9.+uTime),0.,.01*noise(p.xz*12.-uTime)));float micro=pow(max(dot(reflect(-sun,glitterN),-rd),0.),180.);
+ col+=vec3(.3,.35,.3)*micro*.045;
+ // Shoreline clarity + soft submerged sediment edges.
+ col=mix(col,col*vec3(.94,1.025,1.035),.15);
+ return col;}
+vec3 render(vec3 ro,vec3 rd){int ti,br;float tTree=treeIntersect(ro,rd,ti,br);
+ float tWater=1e7;
+ if(rd.y<-.002){tWater=-ro.y/rd.y;for(int k=0;k<3;k++){vec3 p=ro+rd*tWater;float h=wave(p.xz,uTime);tWater+=(h-p.y)/rd.y;}if(tWater<=0.||tWater>700.)tWater=1e7;}
+ // Bank occupies the background when no water foreground intersection.
+ float ts=1e7;vec3 landP=vec3(0);if(rd.z<-.001){
+  float lo=max(0.,(-32.-ro.z)/rd.z),stepT=uLandscape>.5?4.25:3.;
+  for(int i=0;i<85;i++){
+   if(uLandscape>.5&&i>=48)break;
+   float t=lo+float(i)*stepT;if(t>260.)break;
+   vec3 p=ro+rd*t;
+   if(p.z<shoreline(p.x)&&p.y<shoreHeight(p.xz)){
+     if(uLandscape>.5){float lower=max(0.,t-stepT),upper=t;
+       for(int j=0;j<5;j++){float m=.5*(lower+upper);vec3 q=ro+rd*m;
+         if(q.z<shoreline(q.x)&&q.y<shoreHeight(q.xz))upper=m;else lower=m;}
+       t=upper;p=ro+rd*t;}
+     ts=t;landP=p;break;
+   }
+  }
+ }
+ // Ground and forest behind shore can hide water farther than shoreline.
+ if(tTree<min(tWater,ts)){vec3 p=ro+rd*tTree;vec3 c=treeShade(p,ti,br,rd);float fog=1.-exp(-tTree*.009);return mix(c,environment(ro,rd),fog*.38);}
+ if(ts<tWater){
+  vec3 soil;
+  if(uLandscape>.5){
+    soil=bankTone(landP);
+    // In the wooded shore strip, vegetation is in front of soil and snow patches.
+    float canopy=uForest007>.5?understory007(landP,0.):forestBaseMask(landP,0.);
+    vec3 ever=mix(vec3(.07,.16,.14),vec3(.18,.29,.22),noise(landP.xz*.27));
+    soil=mix(soil,ever,canopy*.63);
+    if(uForest007>.5){
+      float dist=max(0.,shoreline(landP.x)-landP.z);
+      float rough=noise(landP.xz*.39+vec2(8.,6.));
+      float plant=smoothstep(.48,.79,rough)*smoothstep(.25,2.3,dist)*(1.-smoothstep(9.,26.,dist));
+      float winter=smoothstep(2.18,2.96,uSeason);
+      soil=mix(soil,vec3(.11,.27,.19),plant*.45*(1.-winter*.58));
+      soil=mix(soil,vec3(.10,.23,.21),(1.-smoothstep(.15,1.6,dist))*.18);
+    }
+    return mix(soil,environment(ro,rd),.30);
+  }
+  soil=mix(vec3(.24,.35,.24),vec3(.10,.21,.18),noise(landP.xz*.13));
+  float snow=smoothstep(2.15,2.95,uSeason);
+  float drift=fbm(landP.xz*.31)+.35*fbm(landP.xz*.68+3.4);
+  float snowMask=smoothstep(.35,.81,drift+.12*landP.y)*snow;
+  vec3 snowShade=mix(vec3(.48,.55,.57),vec3(.83,.88,.87),.38+.58*noise(landP.xz*.27));
+  soil=mix(soil,snowShade,mix(snow*.84,snowMask,uDetail));
+  return mix(soil,environment(ro,rd),.26);}
+ if(tWater<1e6){vec3 p=ro+rd*tWater;vec3 n=waveN(p.xz,uTime);return shadeWater(ro,rd,p,n);}
+ return environment(ro,rd);
+}
+void main(){vec2 uv=(gl_FragCoord.xy-.5*uResolution)/uResolution.y;
+ vec3 ro=vec3(0.,uHeight,18.5);vec3 tar=vec3(0.,1.1,-16.);vec3 fw=normalize(tar-ro),right=normalize(cross(fw,vec3(0.,1.,0.))),up=cross(right,fw);
+ float a=uYaw;mat2 rot=mat2(cos(a),-sin(a),sin(a),cos(a));fw.xz=rot*fw.xz;right.xz=rot*right.xz;up.xz=rot*up.xz;
+ vec3 rd=normalize(fw+uv.x*right*1.35+uv.y*up*1.35+uPitch*up);
+ vec3 c=render(ro,rd);
+ c=max(c,vec3(0.));c=pow(c/(1.+c*.33),vec3(.87));
+ // Luminance vignette and slight filmic atmosphere.
+ float vignette=1.-.20*dot(uv,uv);c*=vignette;
+ fragColor=vec4(c,1.);
+}
+</script>
+<script id="particleVert" type="x-shader/x-vertex">#version 300 es
+precision highp float;
+uniform vec2 pResolution;
+uniform float pTime,pYaw,pPitch,pHeight,pSeason,pWind,pIntensity,pEnable;
+out float vOpacity,vStyle,vSeed,vDepth;
+float rand1(float x){return fract(sin(x*127.1+78.233)*43758.5453);}
+void main(){
+ float id=float(gl_VertexID);
+ float a=rand1(id*3.37+1.0),b=rand1(id*7.19+2.0),c=rand1(id*11.73+4.0);
+ float spring=(1.0-smoothstep(0.08,0.92,pSeason));
+ float autumn=smoothstep(1.28,1.9,pSeason)*(1.0-smoothstep(2.08,2.7,pSeason));
+ float winter=smoothstep(2.28,2.97,pSeason);
+ float activity=clamp(spring*.48+autumn*.85+winter,0.0,1.0)*pIntensity*pEnable;
+ vStyle=winter>max(spring,autumn)?2.0:(autumn>spring?1.0:0.0);
+ float speed=mix(.45,1.0,c);
+ speed=mix(speed, .56+speed*.78, winter);
+ float life=fract(b+pTime*speed/19.0);
+ float y=15.8-life*16.1;
+ float x0=(a-.5)*51.0;
+ float drift=pTime*(.12+.29*pWind)+1.25*sin(pTime*.56+b*6.283+id)*sin(pTime*.14+c*6.283);
+ float x=mod(x0+drift+27.0,54.0)-27.0;
+ float z=-38.0+55.0*rand1(id*9.61+7.0);
+ float flutter=(.25+.35*autumn)*sin(pTime*2.9+id*2.0);
+ x+=flutter;
+ vec3 P=vec3(x,y,z),ro=vec3(0.0,pHeight,18.5),tar=vec3(0.0,1.1,-16.0);
+ vec3 fw=normalize(tar-ro),right=normalize(cross(fw,vec3(0.0,1.0,0.0))),up=cross(right,fw);
+ float az=pYaw,cs=cos(az),sn=sin(az);
+ fw.xz=mat2(cs,-sn,sn,cs)*fw.xz;
+ right.xz=mat2(cs,-sn,sn,cs)*right.xz;
+ up.xz=mat2(cs,-sn,sn,cs)*up.xz;
+ fw=normalize(fw+pPitch*up);
+ vec3 d=P-ro;
+ float forward=dot(d,fw),aspect=pResolution.x/pResolution.y;
+ float xN=dot(d,right)/max(forward,.01)*2.0/(1.35*aspect);
+ float yN=dot(d,up)/max(forward,.01)*2.0/1.35;
+ gl_Position=vec4(xN,yN,.0,1.0);
+ vSeed=c;vDepth=length(d);
+ float scale=clamp(12.0/max(forward,1.0),.22,1.1);
+ float pixelScale=clamp(pResolution.y/540.0,.7,1.7);
+ gl_PointSize=clamp((vStyle>1.5?4.5:8.8)*scale*pixelScale,1.25,14.0);
+ float nearFade=smoothstep(1.0,3.0,forward)*(1.0-smoothstep(65.0,115.0,forward));
+ float fallFade=smoothstep(0.0,1.7,y)*(1.0-smoothstep(14.3,15.8,y));
+ vOpacity=clamp(activity*nearFade*fallFade*(.6+.4*a),0.0,1.0);
+ if(forward<.5||abs(xN)>1.18||abs(yN)>1.18||vOpacity<.007){gl_Position=vec4(2.0,2.0,0.0,1.0);gl_PointSize=0.0;}
+}
+</script>
+<script id="particleFrag" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+in float vOpacity,vStyle,vSeed,vDepth;
+uniform vec2 pResolution;
+uniform float pTime,pYaw,pPitch,pHeight,pWind,pSeason,pDetail,pContact,pLandscape,pForest007;
+const float PI=3.141592653589793;
+float hash(float n){return fract(sin(n*127.1+78.233)*43758.5453);}
+float hash2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 x){vec2 i=floor(x),f=fract(x); f=f*f*(3.-2.*f);return mix(mix(hash2(i),hash2(i+vec2(1,0)),f.x),mix(hash2(i+vec2(0,1)),hash2(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 x){float a=.5,s=0.;for(int i=0;i<4;i++){s+=noise(x)*a;x*=2.01;a*=.5;}return s;}
+float wave(vec2 p,float t){float w=max(pWind,.02);vec2 q=mat2(.85,-.53,.53,.85)*p;
+ float h=0.;
+ h+=.075*sin(p.x*.65 + p.y*.23-t*.69)*w;
+ h+=.033*sin(q.x*1.52+q.y*.7-t*1.11)*w;
+ h+=.020*sin(p.x*2.75-p.y*1.5+t*1.82)*w;
+ h+=.010*sin(q.y*5.1+q.x*1.2-t*2.2)*w;
+ h+=.006*sin(p.x*9.3+p.y*2.2+t*3.1)*w;
+ return h;}
+vec3 waveN(vec2 p,float t){float e=.045;float a=wave(p+vec2(e,0),t)-wave(p-vec2(e,0),t);float b=wave(p+vec2(0,e),t)-wave(p-vec2(0,e),t);return normalize(vec3(-a/(2.*e),1.,-b/(2.*e)));}
+float segment(vec3 p,vec3 a,vec3 b){vec3 ba=b-a;float h=clamp(dot(p-a,ba)/dot(ba,ba),0.,1.);return length(p-a-ba*h);}
+float rayCapsule(vec3 ro,vec3 rd,vec3 pa,vec3 pb,float ra){vec3 ba=pb-pa,oa=ro-pa;float baba=dot(ba,ba),bard=dot(ba,rd),baoa=dot(ba,oa),rdoa=dot(rd,oa),oaoa=dot(oa,oa);float aa=baba-bard*bard,bb=baba*rdoa-baoa*bard,cc=baba*oaoa-baoa*baoa-ra*ra*baba;float h=bb*bb-aa*cc;if(h>=0.&&aa>0.00001){float t=(-bb-sqrt(h))/aa;float y=baoa+t*bard;if(y>0.&&y<baba&&t>0.)return t;}float minT=1e7;for(int k=0;k<2;k++){vec3 q=k==0?pa:pb;vec3 oc=ro-q;float b=dot(oc,rd),c=dot(oc,oc)-ra*ra,h=b*b-c;if(h>=0.){float t=-b-sqrt(h);if(t>0.)minT=min(minT,t);}}return minT;}
+// 005 hotfix: particle shaders are independent GLSL programs.
+// Duplicate the exact tree-intersection dependency group from the main scene.
+// Shared symbols: trunkBase, trunkHeight, trunkTop, treeIntersect, rayCapsule.
+vec3 trunkBase(int i){float f=float(i),s=hash(f*18.27);float x=-18.+f*1.72+(s-.5)*2.4;float z=-4.4-hash(f*2.73+3.)*18.0;return vec3(x,-.35,z);}
+float trunkHeight(int i){return 5.1+hash(float(i)*6.18+1.4)*7.9;}
+vec3 trunkTop(int i){vec3 a=trunkBase(i);float h=trunkHeight(i);return a+vec3((hash(float(i)*1.38)-.5)*1.05,h,(hash(float(i)*2.72)-.5)*.65);}
+float treeIntersect(vec3 ro,vec3 rd,out int idx,out int branch){float minT=1e7;idx=-1;branch=0;
+ for(int i=0;i<24;i++){vec3 a=trunkBase(i),b=trunkTop(i);vec3 mid=(a+b)*.5;float tt=dot(mid-ro,rd);if(tt<-5.||length(ro+rd*tt-mid)>trunkHeight(i)*.56+2.9)continue;float rad=.13+hash(float(i)*3.72)*.14;float t=rayCapsule(ro,rd,a,b,rad);if(t<minT){minT=t;idx=i;branch=0;}
+ for(int k=0;k<2;k++){float f=float(k),frac=.35+.27*f+hash(float(i)*3.1+f)*.18;vec3 at=mix(a,b,frac);vec3 end=at+vec3((hash(float(i)*5.2+f*8.9)-.5)*4.5,1.1+hash(float(i)*6.2+f)*1.8,(hash(float(i)*3.2+f*4.9)-.5)*2.4);float bt=rayCapsule(ro,rd,at,end,rad*.37);if(bt<minT){minT=bt;idx=i;branch=k+1;}}
+ }
+ return minT;}
+float shoreline(float x){return -29.0+1.35*sin(x*.14)+.7*sin(x*.49);}
+float shoreHeight(vec2 xz){float sd=shoreline(xz.x)-xz.y;if(sd<0.)return -8.;
+ float winter=smoothstep(2.15,2.95,pSeason)*pDetail;
+ // Preserve the faulty 005 bank only for explicit same-camera A/B comparison.
+ if(pLandscape<.5){float base=.8+sd*.21+1.3*fbm(xz*.067);
+  float crest=smoothstep(.3,3.0,sd)*(.10+.19*fbm(xz*.37));
+  return base+winter*crest;}
+ // 006: bounded terrain, a gentle wet shore -> undulating bank -> low wooded rise.
+ // Crucially: no unbounded +0.21*distance rise (the grey cliff in 005).
+ float n=noise(xz*.085+vec2(4.8,-1.7));
+ float band=.16+1.28*smoothstep(0.,11.,sd)+1.42*smoothstep(11.,37.,sd)
+          +.80*smoothstep(35.,75.,sd);
+ band+=(n-.5)*(.30+.70*smoothstep(6.,45.,sd));
+ float drift=(.08+.11*noise(xz*.27))*winter*smoothstep(1.2,9.,sd);
+ return max(.04,band+drift);
+}
+
+float forestBaseMask(vec3 p,float depth){
+ float gh=shoreHeight(p.xz);
+ float coarse=noise(vec2(p.x*.11+depth*7.3,depth*11.1));
+ float fine=noise(vec2(p.x*.38+depth*2.8,depth*5.9));
+ float h=4.5+3.9*coarse+1.55*fine;
+ return smoothstep(gh-.3,gh+.85,p.y)*(1.-smoothstep(gh+h-.7,gh+h+.6,p.y));
+}
+
+// 007: seeded mixed larch/evergreen broadleaf stand; no flat triangular billboard row.
+// Kept identical in scene and independent particle fragment shaders for occlusion.
+vec4 grove007(vec3 p,float depth,float season){
+ float spacing=depth<.5?3.65:5.25,cell=floor(p.x/spacing);
+ float alpha=0.,weightSum=0.;vec3 pigment=vec3(0.);
+ float au=smoothstep(1.12,1.92,season)*(1.-smoothstep(2.08,2.94,season));
+ float winter=smoothstep(2.15,2.96,season);
+ for(int k=-2;k<=2;k++){
+  float id=cell+float(k),seed=id*17.73+depth*113.2;
+  float cx=(id+.5)*spacing+(hash(seed+3.4)-.5)*spacing*.62;
+  float y0=shoreHeight(vec2(cx,-33.-8.*depth));
+  float ht=mix(7.0,16.0,hash(seed+11.7))*(1.-depth*.14);
+  float wd=mix(1.5,3.25,hash(seed+5.2))*(1.+.1*depth);
+  if(abs(p.x-cx)>wd*1.43||p.y<y0-.45||p.y>y0+ht+.6)continue;
+  float q=clamp((p.y-y0)/ht,0.,1.),dx=(p.x-cx)/wd;
+  float species=hash(seed+17.5),conifer=step(.39,species);
+  // Three overlapping, asymmetric deciduous lobes.
+  // Break the clean circular crowns into uneven smaller foliage masses.
+  float turn=atan(q-.69,dx),fringe=.065*sin(turn*7.+seed)+.042*sin(turn*13.-seed*.61);
+  float dx2=dx+.065*sin(q*23.+seed)*sin(dx*10.+seed*.73);
+  float bow1=1.-smoothstep(.87+fringe,1.03+fringe,length(vec2(dx2/.92,(q-.68)/.29)));
+  float bow2=1.-smoothstep(.88+fringe*.68,1.07+fringe*.68,length(vec2((dx2-.42)/.60,(q-.66)/.24)));
+  float bow3=1.-smoothstep(.86-fringe*.51,1.06-fringe*.51,length(vec2((dx2+.38)/.58,(q-.71)/.22)));
+  float broad=max(bow1,max(bow2,bow3));
+  // Natural larch / spruce branch shelves: irregular outline, not a uniform cone.
+  float taper=pow(max(0.,1.-q),.77)*smoothstep(.025,.15,q);
+  float branch=(.88+.095*sin(q*36.+seed)+.065*sin(q*61.+seed*1.3));
+  float radius=taper*branch*(.90+.13*noise(p.xy*.24+vec2(seed*.017,depth)));
+  float pine=(1.-smoothstep(radius-.065,radius+.075,abs(dx)))*(1.-smoothstep(.965,1.01,q));
+  float stem=(1.-smoothstep(.028,.095,abs(dx)))*smoothstep(0.,.055,q)*(1.-smoothstep(.93,1.0,q));
+  float foliage=mix(broad,pine,conifer);
+  // Some needle-bearing larches lose foliage in winter, evergreen spruce remains.
+  float larch=conifer*step(.76,hash(seed+1.8));
+  foliage*=1.-winter*(.91*(1.-conifer)+.74*larch);
+  float cov=clamp(max(foliage,stem*.57),0.,1.);
+  if(cov<.008)continue;
+  float n=noise(p.xy*.44+vec2(seed*.021,depth*9.));
+  vec3 foliageGreen=mix(vec3(.048,.135,.12),vec3(.23,.37,.23),clamp(.25+hash(seed+2.7)*.44+n*.40,0.,1.));
+  vec3 autumnCol=mix(vec3(.43,.29,.095),vec3(.78,.48,.18),hash(seed+22.3));
+  autumnCol=mix(autumnCol,vec3(.55,.19,.11),step(.79,hash(seed+8.7))*.42);
+  vec3 col=mix(foliageGreen,autumnCol,au*(1.-conifer*.63)+au*larch*.36);
+  col=mix(col,vec3(.32,.30,.23),winter*(1.-conifer)*.42);
+  col=mix(col,vec3(.64,.70,.67),winter*conifer*(.07+.17*n));
+  // Exposed branches turn woody instead of inheriting leaf color.
+  col=mix(col,vec3(.27,.27,.23),stem*(1.-foliage)*(.72+.24*winter));
+  col*=.78+.27*n+.08*sin(q*16.+seed);
+  float w=cov*(1.-alpha);pigment+=col*w;weightSum+=w;alpha+=w;
+ }
+ return vec4(pigment/max(weightSum,.0001),clamp(alpha,0.,1.));
+}
+// Small shrubs and uneven shoreline tussocks, shared with the particle occluder.
+float understory007(vec3 p,float depth){
+ float ground=shoreHeight(p.xz),cell=floor(p.x/2.85),cover=0.;
+ for(int k=-1;k<=1;k++){
+  float id=cell+float(k),seed=id*11.39+depth*91.8;
+  float x=(id+.44)*2.85+(hash(seed+2.3)-.5)*1.7;
+  float h=.67+1.45*hash(seed+9.1),w=.65+.85*hash(seed+4.4);
+  float dx=(p.x-x)/w,dy=(p.y-ground-h*.53)/(h*.55);
+  float shape=1.-smoothstep(.79,1.07,length(vec2(dx,dy))*(.89+.10*sin(p.y*7.+seed)));
+  cover=max(cover,shape*step(.26,hash(seed+6.3)));
+ }
+ return clamp(cover,0.,1.);
+}
+
+vec4 woodland(vec3 p,float depth){
+ float spacing=depth<0.5?4.25:5.75;
+ float cell=floor(p.x/spacing);
+ float alpha=0.;vec3 pigment=vec3(0.);float wt=0.;
+ float autumn=smoothstep(1.12,1.92,pSeason)*(1.-smoothstep(2.03,2.94,pSeason));
+ float winter=smoothstep(2.15,2.96,pSeason);
+ for(int k=-2;k<=2;k++){
+  float id=cell+float(k),seed=id*12.67+depth*148.9;
+  float cx=(id+.48)*spacing+(hash(seed+3.3)-.5)*spacing*.77;
+  float y0=shoreHeight(vec2(cx,-31.4-8.*depth));
+  float ht=mix(6.5,15.2,hash(seed+7.));
+  float ww=mix(1.9,3.8,hash(seed+11.))*(1.+.15*depth);
+  if(abs(p.x-cx)>ww+1.2||p.y<y0-.5||p.y>y0+ht+1.0)continue;
+  float conifer=step(.59,hash(seed+5.));
+  // Rounded uneven deciduous crown, or layered pine silhouette.
+  vec2 d=vec2((p.x-cx)/ww,(p.y-(y0+ht*.68))/(ht*.39));
+  float ell=length(d)*(.92+.12*fbm(p.xy*.31+seed));
+  float roundCrown=1.-smoothstep(.86,1.04,ell);
+  float coneD=abs(p.x-cx)/max(.32,ww*(.16+.86*clamp((y0+ht-p.y)/(ht*.78),0.,1.)));
+  float pine=(1.-smoothstep(.78,1.07,coneD))*smoothstep(y0+.4,y0+1.6,p.y)*(1.-smoothstep(y0+ht-.3,y0+ht+.5,p.y));
+  float bareTrunk=(1.-smoothstep(.08,.18,abs(p.x-cx)))*smoothstep(y0,y0+.25,p.y)*(1.-smoothstep(y0+ht-.4,y0+ht,p.y));
+  float canopy=mix(roundCrown,pine,conifer);
+  float coverage=mix(canopy, max(pine*conifer,bareTrunk*.63),winter*.9);
+  float r=hash(seed+13.1),n=fbm(p.xy*.22+vec2(seed*.07,depth));
+  vec3 green=mix(vec3(.07,.19,.15),vec3(.26,.41,.25),clamp(.3+r*.43+n*.22,0.,1.));
+  vec3 fall=mix(vec3(.43,.25,.095),vec3(.72,.39,.14),r);
+  fall=mix(fall,vec3(.47,.18,.12),smoothstep(.53,.85,r)*.65);
+  vec3 col=mix(green,fall,autumn*(1.-conifer*.68));
+  vec3 snowTint=mix(vec3(.35,.43,.38),vec3(.76,.81,.76),clamp(.25+n*.43,0.,1.));
+  col=mix(col,snowTint,winter*(conifer*.34+(1.-conifer)*.56));
+  float colorLight=clamp(.7+.40*n+.16*sin(p.y*1.71+seed),.5,1.2);
+  col*=colorLight;
+  float weight=coverage*(1.-alpha);
+  pigment+=col*weight;wt+=weight;alpha+=weight;
+ }
+ return vec4(pigment/max(wt,.001),clamp(alpha,0.,1.));
+}
+
+out vec4 outColor;
+// Uses the same camera, trunk/branch geometry, water waves and shore function
+// as the main 004 raymarch. Only 320 small point sprites pay for these ray tests.
+vec3 rayAtPixel(vec2 screen, out vec3 ro){
+ vec2 uv=(screen-.5*pResolution)/pResolution.y;
+ ro=vec3(0.,pHeight,18.5);vec3 tar=vec3(0.,1.1,-16.);
+ vec3 fw=normalize(tar-ro),right=normalize(cross(fw,vec3(0.,1.,0.))),up=cross(right,fw);
+ mat2 rot=mat2(cos(pYaw),-sin(pYaw),sin(pYaw),cos(pYaw));
+ fw.xz=rot*fw.xz;right.xz=rot*right.xz;up.xz=rot*up.xz;
+ return normalize(fw+uv.x*right*1.35+uv.y*up*1.35+pPitch*up);
+}
+bool blockedByScene(vec3 ro,vec3 rd,float maxT){
+ int ti,branch;float t=treeIntersect(ro,rd,ti,branch);
+ if(t>0. && t<maxT-.13)return true;
+ if(rd.y<-.002){
+  float wt=-ro.y/rd.y;
+  if(wt>0.){for(int k=0;k<3;k++){vec3 q=ro+rd*wt;wt+=(wave(q.xz,pTime)-q.y)/rd.y;}}
+  if(wt>0.&&wt<maxT-.12)return true;
+ }
+ if(pDetail>.5&&rd.z<-.001){
+  // Occlude against the same two forest strata used by the 003 scene.
+  for(int layer=1;layer>=0;layer--){
+   float depth=float(layer),zz=-33.-8.*depth;
+   float t=(zz-ro.z)/rd.z;
+   if(t<=0.||t>=maxT-.15)continue;
+   vec3 q=ro+rd*t;
+   vec4 leaf;
+   if(pLandscape>.5&&pForest007>.5)leaf=grove007(q,depth,pSeason);
+   else leaf=woodland(q,depth);
+   if(leaf.a>.55||(pLandscape>.5&&(pForest007>.5?understory007(q,depth):forestBaseMask(q,depth))>.58)||q.y<shoreHeight(q.xz)-.4)return true;
+  }
+ }
+ if(rd.z<-.001){
+  float lo=max(0.,(-32.-ro.z)/rd.z);
+  for(int j=0;j<85;j++){
+   float t=lo+float(j)*3.;if(t>=maxT-.15||t>260.)break;
+   vec3 q=ro+rd*t;
+   if(q.z<shoreline(q.x)&&q.y<shoreHeight(q.xz))return true;
+  }
+ }
+ return false;
+}
+void main(){
+ if(pContact>.5){vec3 ro;vec3 rd=rayAtPixel(gl_FragCoord.xy,ro);if(blockedByScene(ro,rd,vDepth))discard;}
+ vec2 p=(gl_PointCoord-vec2(.5))*2.0;
+ float a=0.0;vec3 color;
+ if(vStyle>1.5){
+   float rad=length(p);a=(1.0-smoothstep(.35,.95,rad))*.85;
+   color=mix(vec3(.72,.84,.87),vec3(.98,.99,1.0),vSeed);
+ }else{
+   float ang=1.3*vSeed+.35;
+   vec2 r=mat2(cos(ang),-sin(ang),sin(ang),cos(ang))*p;
+   float ellipse=length(vec2(r.x/.79,r.y/.47));
+   a=(1.0-smoothstep(.71,.98,ellipse));
+   float vein=(1.0-smoothstep(.045,.11,abs(r.y)))*.13;
+   if(vStyle>.5){color=mix(vec3(.55,.27,.08),vec3(.83,.49,.13),vSeed);color+=vec3(vein*.3,vein*.2,0.0);}
+   else color=mix(vec3(.93,.75,.80),vec3(1.0,.88,.9),vSeed);
+ }
+ outColor=vec4(color,clamp(vOpacity*a,0.0,.92));
+}
+</script>
+<script>
+(()=>{'use strict';const canvas=document.querySelector('#scene'),err=document.querySelector('#error'),status=document.querySelector('#status'),fps=document.querySelector('#fps');
+const gl=canvas.getContext('webgl2',{antialias:false,alpha:false,powerPreference:'high-performance'});if(!gl){err.textContent='這個瀏覽器不支援 WebGL2。請使用新版 Chrome 或 Edge。';err.style.display='block';status.textContent='WebGL2 不支援';return;}
+const shader=(type,src)=>{let s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;};
+let program;try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,document.querySelector('#vert').textContent));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,document.querySelector('#frag').textContent));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(e){err.textContent='Shader 編譯失敗：'+e.message;err.style.display='block';status.textContent='無法開始';throw e;}
+gl.useProgram(program);const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);const loc=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+// This distinct program uses gl_VertexID; original 003 full-screen shader is kept unchanged.
+let particleProgram;
+try{
+ particleProgram=gl.createProgram();
+ gl.attachShader(particleProgram,shader(gl.VERTEX_SHADER,document.getElementById('particleVert').textContent));
+ gl.attachShader(particleProgram,shader(gl.FRAGMENT_SHADER,document.getElementById('particleFrag').textContent));
+ gl.linkProgram(particleProgram);
+ if(!gl.getProgramParameter(particleProgram,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(particleProgram));
+}catch(e){console.warn('007 optional particle shader unavailable; retaining lake scene',e);particleProgram=null;err.textContent='季節粒子效果暫時無法啟用，007 湖面仍可使用：'+e.message;err.style.display='block';}
+const particleVao=gl.createVertexArray();
+const pLoc=(name)=>particleProgram?gl.getUniformLocation(particleProgram,name):null;
+const pu={resolution:pLoc('pResolution'),time:pLoc('pTime'),yaw:pLoc('pYaw'),pitch:pLoc('pPitch'),height:pLoc('pHeight'),season:pLoc('pSeason'),wind:pLoc('pWind'),intensity:pLoc('pIntensity'),enable:pLoc('pEnable'),contact:pLoc('pContact'),detail:pLoc('pDetail'),landscape:pLoc('pLandscape'),forest007:pLoc('pForest007')};
+const PARTICLE_COUNT=320;
+
+let wind=.25,turq=.92,yaw=0,pitch=0,height=4.5,now=0,frames=0,lastFps=performance.now(),drag=null;
+let particleIntensity=.65,particleEnabled=1,paused=false,occlusionEnabled=1,rippleEnabled=1,activeImpacts=0;let detail=1,landscape=1,forest007=1;let season=1,seasonTarget=1,fog=.08,fogTarget=.08,warmth=0,warmthTarget=0,prevFrame=0;
+const un=(x)=>gl.getUniformLocation(program,x);const uniforms={detail:un('uDetail'),landscape:un('uLandscape'),forest007:un('uForest007'),resolution:un('uResolution'),time:un('uTime'),wind:un('uWind'),turq:un('uTurq'),yaw:un('uYaw'),pitch:un('uPitch'),height:un('uHeight'),season:un('uSeason'),fog:un('uFog'),sunWarmth:un('uSunWarmth'),impacts:un('uImpacts[0]'),rippleEnabled:un('uRippleEnabled')};
+function resize(){const dpr=Math.min(devicePixelRatio||1,1.3),q=Math.max(.55,Math.min(1,+new URLSearchParams(location.search).get('q')||1));const w=Math.min(1200,Math.floor(canvas.clientWidth*dpr*q)),h=Math.min(720,Math.floor(canvas.clientHeight*dpr*q));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
+
+// Same deterministic ID sequence as the GPU particle vertex shader (004).
+const impactValues=new Float32Array(12*4);
+const h1=x=>{const f=Math.sin(x*127.1+78.233)*43758.5453;return f-Math.floor(f);};
+const smooth=(a,b,x)=>{const v=Math.max(0,Math.min(1,(x-a)/(b-a)));return v*v*(3-2*v);};
+const wrap=(x,w)=>((x%w)+w)%w;
+const waveShore=x=>-29+1.35*Math.sin(x*.14)+.7*Math.sin(x*.49);
+function makeImpacts(){
+ impactValues.fill(0);activeImpacts=0;
+ if(!particleProgram||!particleEnabled||!rippleEnabled||!occlusionEnabled||detail<.5||season>.9&&season<1.35||particleIntensity<.01)return;
+ const spring=1-smooth(.08,.92,season),autumn=smooth(1.28,1.9,season)*(1-smooth(2.08,2.7,season)),winter=smooth(2.28,2.97,season);
+ const strength=(spring*.45+autumn*.95+winter*.20)*particleIntensity;
+ if(strength<.025)return;
+ for(let j=0;j<12;j++){
+  const id=j*27+3,b=h1(id*7.19+2),c=h1(id*11.73+4),a=h1(id*3.37+1);
+  const speed0=.45+.55*c,speed=speed0+( (.56+speed0*.78)-speed0)*winter;
+  const hitPhase=15.8/16.1,cycle=Math.floor(b+now*speed/19-hitPhase);
+  const when=(cycle+hitPhase-b)*19/speed,age=now-when;
+  if(age<0||age>2.25)continue;
+  const drift=when*(.12+.29*wind)+1.25*Math.sin(when*.56+b*6.283+id)*Math.sin(when*.14+c*6.283);
+  const x=wrap((a-.5)*51+drift+27,54)-27 +(.25+.35*autumn)*Math.sin(when*2.9+id*2);
+  const z=-38+55*h1(id*9.61+7);
+  if(z<waveShore(x)+.6)continue; // shore impact is masked by land, not a lake ripple
+  const o=j*4;impactValues[o]=x;impactValues[o+1]=z;impactValues[o+2]=age;impactValues[o+3]=strength;
+  activeImpacts++;
+ }
+}
+
+function frame(ts){resize();const dt=prevFrame?Math.min(.1,(ts-prevFrame)/1000):.016;prevFrame=ts;const k=1.-Math.exp(-dt*1.8);season+=(seasonTarget-season)*k;fog+=(fogTarget-fog)*k;warmth+=(warmthTarget-warmth)*k;if(!paused)now+=dt;gl.useProgram(program);gl.bindVertexArray(null);gl.disable(gl.BLEND);gl.uniform1f(uniforms.detail,detail);gl.uniform1f(uniforms.landscape,landscape);gl.uniform1f(uniforms.forest007,forest007);gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);gl.uniform1f(uniforms.time,now);gl.uniform1f(uniforms.wind,wind);gl.uniform1f(uniforms.turq,turq);gl.uniform1f(uniforms.yaw,yaw);gl.uniform1f(uniforms.pitch,pitch);gl.uniform1f(uniforms.height,height);gl.uniform1f(uniforms.season,season);gl.uniform1f(uniforms.fog,fog);gl.uniform1f(uniforms.sunWarmth,warmth);makeImpacts();gl.uniform1f(uniforms.rippleEnabled,rippleEnabled&&occlusionEnabled&&detail>.5?1:0);gl.uniform4fv(uniforms.impacts,impactValues);gl.drawArrays(gl.TRIANGLES,0,3);
+// GPU point sprites; restrained spring petals, autumn leaves and winter snowfall.
+// Not physically interacting with branches/water/collision in this prototype.
+if(particleProgram&&particleEnabled&&particleIntensity>0.001){
+ gl.useProgram(particleProgram);gl.bindVertexArray(particleVao);
+ gl.uniform2f(pu.resolution,canvas.width,canvas.height);
+ gl.uniform1f(pu.time,now);gl.uniform1f(pu.yaw,yaw);gl.uniform1f(pu.pitch,pitch);gl.uniform1f(pu.height,height);
+ gl.uniform1f(pu.season,season);gl.uniform1f(pu.wind,wind);
+ gl.uniform1f(pu.intensity,particleIntensity);gl.uniform1f(pu.enable,detail);gl.uniform1f(pu.contact,occlusionEnabled);gl.uniform1f(pu.detail,detail);gl.uniform1f(pu.landscape,landscape);gl.uniform1f(pu.forest007,forest007);
+ gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+ gl.drawArrays(gl.POINTS,0,PARTICLE_COUNT);
+ gl.disable(gl.BLEND);gl.bindVertexArray(null);gl.useProgram(program);
+}
+if(ts-lastFps>1200){const hit=document.getElementById('impactInfo');if(hit)hit.textContent='湖面漣漪 '+activeImpacts+' / 12';}frames++;if(ts-lastFps>1200){fps.textContent=Math.round(frames*1000/(ts-lastFps))+' FPS';frames=0;lastFps=ts;}requestAnimationFrame(frame);}requestAnimationFrame(frame);
+status.textContent=particleProgram?'WebGL2 運作中 · 季節粒子候選':'WebGL2 運作中 · 湖面模式（粒子停用）';
+function bindSlider(id,key){const input=document.getElementById(id),out=document.getElementById(id+'Val');input.addEventListener('input',()=>{let v=+input.value;out.textContent=v.toFixed(2);if(key==='wind')wind=v;else turq=v;});}bindSlider('wind','wind');bindSlider('turq','turq');
+for(const b of document.querySelectorAll('[data-mode]'))b.addEventListener('click',()=>{const mode=+b.dataset.mode;wind=[.25,.65,1.15][mode];turq=[.92,.82,.70][mode];document.getElementById('wind').value=wind;document.getElementById('turq').value=turq;document.getElementById('windVal').textContent=wind.toFixed(2);document.getElementById('turqVal').textContent=turq.toFixed(2);for(const t of document.querySelectorAll('[data-mode]')){const ok=t===b;t.classList.toggle('active',ok);t.setAttribute('aria-selected',ok+'');}});
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw=Math.max(-.65,Math.min(.65,yaw+(e.clientX-drag.x)*.002));pitch=Math.max(-.25,Math.min(.25,pitch-(e.clientY-drag.y)*.0015));drag={x:e.clientX,y:e.clientY};});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('wheel',e=>{height=Math.max(2,Math.min(12,height*(e.deltaY>0?1.08:.92)));},{passive:true});
+const setWT=(w,t)=>{wind=w;turq=t;for(const [id,v] of [['wind',w],['turq',t]]){document.getElementById(id).value=v;document.getElementById(id+'Val').textContent=v.toFixed(2);}};
+for(const b of document.querySelectorAll('[data-season]'))b.addEventListener('click',()=>{const id=+b.dataset.season;seasonTarget=id;fogTarget=[.16,.03,.12,.18][id];for(const x of document.querySelectorAll('[data-season]'))x.classList.toggle('chosen',x===b);});
+for(const b of document.querySelectorAll('[data-scene]'))b.addEventListener('click',()=>{const id=b.dataset.scene;
+if(id==='blue'){setWT(.25,.92);fogTarget=.08;warmthTarget=0;}
+if(id==='summer'){setWT(.52,.46);fogTarget=.02;warmthTarget=0;seasonTarget=1;}
+if(id==='mist'){setWT(.09,.68);fogTarget=.78;warmthTarget=0;}
+if(id==='sunset'){setWT(.31,.68);fogTarget=.15;warmthTarget=1;}
+for(const x of document.querySelectorAll('[data-scene]'))x.classList.toggle('chosen',x===b);
+for(const x of document.querySelectorAll('[data-season]'))x.classList.toggle('chosen',+x.dataset.season===Math.round(seasonTarget));
+});
+document.getElementById('beforeAfter').addEventListener('click',()=>{
+ detail=1.-detail;const b=document.getElementById('beforeAfter');
+ b.setAttribute('aria-pressed',detail<.5?'true':'false');
+ b.textContent=detail<.5?'切回：003 新效果':'比較：002 舊效果';
+ document.getElementById('compareDesc').textContent=detail<.5?'002 舊林線／純色岸雪':'003 分層森林／地形岸雪';
+});
+const particleInput=document.getElementById('particles');
+particleInput.addEventListener('input',()=>{particleIntensity=Math.max(0,Math.min(1,+particleInput.value));document.getElementById('particlesVal').textContent=particleIntensity.toFixed(2);});
+document.getElementById('effectToggle').addEventListener('click',()=>{
+ particleEnabled=1-particleEnabled;
+ const b=document.getElementById('effectToggle');b.setAttribute('aria-pressed',particleEnabled?'true':'false');
+ b.textContent=particleEnabled?'季節粒子開啟':'季節粒子關閉';
+});
+document.getElementById('pauseMotion').addEventListener('click',()=>{
+ paused=!paused;const b=document.getElementById('pauseMotion');b.setAttribute('aria-pressed',paused?'true':'false');b.textContent=paused?'繼續動畫':'暫停動畫';
+});
+document.getElementById('occlusionToggle').addEventListener('click',()=>{
+ occlusionEnabled=1-occlusionEnabled;const b=document.getElementById('occlusionToggle');b.setAttribute('aria-pressed',occlusionEnabled?'true':'false');b.textContent=occlusionEnabled?'005 遮擋：開':'005 遮擋：關';
+});
+document.getElementById('rippleToggle').addEventListener('click',()=>{
+ rippleEnabled=1-rippleEnabled;const b=document.getElementById('rippleToggle');b.setAttribute('aria-pressed',rippleEnabled?'true':'false');b.textContent=rippleEnabled?'接觸漣漪：開':'接觸漣漪：關';
+});
+document.getElementById('landscapeToggle').addEventListener('click',()=>{
+ landscape=1-landscape;const b=document.getElementById('landscapeToggle');
+ b.setAttribute('aria-pressed',landscape<.5?'true':'false');
+ b.textContent=landscape>.5?'對岸：006 自然樹林／緩坡':'對岸：005 原始雪壁';
+ document.getElementById('landscapeDescription').textContent=landscape>.5?'006 自然地形／森林／遠丘':'005 灰白高牆／三角樹林（僅供比較）';
+});
+document.getElementById('forestToggle').addEventListener('click',()=>{
+ forest007=1-forest007;
+ const b=document.getElementById('forestToggle');
+ b.setAttribute('aria-pressed',forest007<.5?'true':'false');
+ b.textContent=forest007>.5?'森林：007 混合樹冠／岸草':'森林：006 舊樹林（比較）';
+ document.getElementById('forestDescription').textContent=forest007>.5?'007 多層樹冠／林緣矮灌木':'006 樹木和林冠舊版本（同鏡位）';
+});
+window.aoiikeDebug={get forest007(){return forest007},get landscape(){return landscape},get occlusionEnabled(){return occlusionEnabled},get rippleEnabled(){return rippleEnabled},get activeImpacts(){return activeImpacts},get particleIntensity(){return particleIntensity},get particleEnabled(){return particleEnabled},get paused(){return paused},get particleCount(){return PARTICLE_COUNT},get detail(){return detail},get wind(){return wind},get turq(){return turq},get season(){return season},get fog(){return fog},get warmth(){return warmth},gl};
+})();
+</script>
+</body></html>
