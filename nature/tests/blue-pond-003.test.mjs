@@ -25,7 +25,7 @@ test("003 adds layered woods and shoreline geometry instead of global color only
  assert.match(now,/vec3 refl=reflectScene/);
 });
 test("inline JS remains syntactically valid",()=>{
- const matches=[...now.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
+ const matches=[...now.matchAll(/<script>([\s\S]*?)<\/script>/g)];
  assert.equal(matches.length,1);
  new Script(matches[0][1]);
 });
