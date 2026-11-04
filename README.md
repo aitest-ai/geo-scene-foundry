@@ -29,3 +29,9 @@
 - [004 單檔互動頁](nature/demos/blue-pond-seasons-004.html)：春花瓣、秋落葉、冬細雪，與粒子密度、暫停／開關。
 - [季節粒子技能](skills/seasonal-particles/SKILL.md)｜[設定 JSON](nature/effects/seasonal-particles-v0.1.json)｜[003→004 QA](nature/demos/README-season-004.md)。
 - 003 和過去版本、既有地圖／網站均保留。上述是 visual prototype，尚未通過真實 WebGL2/手機測試。
+
+## 005｜季節粒子遮擋及水面細漣漪（實驗候選）
+
+- [獨立 005 HTML](nature/demos/blue-pond-seasons-005.html)｜[技能](skills/particle-water-contact/SKILL.md)｜[參數](nature/effects/particle-contact-v0.1.json)｜[QA](nature/demos/README-season-005.md)。
+- 005 依樹幹、岸地、森林和水面判斷遮擋，另以小範圍法線擾動呈現落水漣漪。實際 WebGL2/手機畫面未驗收，沒有完整 FFT 與物理落葉／積雪。
+- 保留原始 001～004 及所有洞爺湖、鄭成功等既有專案不變。

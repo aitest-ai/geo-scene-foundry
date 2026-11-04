@@ -1,0 +1,16 @@
+{
+  "version": "005",
+  "date": "2026-11-04",
+  "baseline": "blue-pond-seasons-004.html",
+  "baselineSha256": "641e5cc4361d728f46e1b2f050ca49c05c8e044546935f89e287d39198384cc3",
+  "candidate": "blue-pond-seasons-005.html",
+  "candidateSha256": "56ff25e5520fe1623c527c0fdfb447fddfb5f62efa96bc00758379aab7d9c79a",
+  "localNodeTests": "7/7 passed",
+  "githubActions": "pending",
+  "browserWebGL2": "unavailable in current Chromium environment",
+  "realShaderCompile": "not validated",
+  "fps": "not measured",
+  "mobile": "not tested",
+  "fftIntegrated": false,
+  "sourceMapsChanged": false
+}

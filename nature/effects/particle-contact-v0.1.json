@@ -1,0 +1,29 @@
+{
+  "id": "particle-water-contact",
+  "version": "0.1.0",
+  "status": "prototype",
+  "sourceDemo": "nature/demos/blue-pond-seasons-005.html",
+  "geometryOcclusion": {
+    "method": "ray vs standing tree trunk/branches, two-layer woodland silhouette, water wave surface and shoreline",
+    "pixelRayTest": true,
+    "forestAlphaThreshold": 0.55
+  },
+  "rippleContacts": {
+    "maxEvents": 12,
+    "lifeSeconds": 2.25,
+    "normalPerturbation": true,
+    "physicallyMeasured": false
+  },
+  "unsupported": [
+    "snow accumulation",
+    "fallen leaves persistence",
+    "physical fluid dynamics",
+    "game collision",
+    "Open Water FFT"
+  ],
+  "qa": {
+    "webgl2Verified": false,
+    "mobileVerified": false,
+    "sourceMapsUnchanged": true
+  }
+}
