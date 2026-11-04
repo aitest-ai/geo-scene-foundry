@@ -2,10 +2,10 @@ import test from "node:test";import assert from "node:assert/strict";import {rea
 import {shoreHeight006,shoreline,ridgeHeight006} from "../runtime/shore-profile.mjs";
 const txt=n=>readFileSync(new URL("../demos/"+n,import.meta.url),"utf8");
 const before=txt("blue-pond-seasons-005.html"), after=txt("blue-pond-landscape-006.html");
-const blocks=Object.fromEntries([...after.matchAll(/<script id="(\\w+)"[^>]*>([\\s\\S]*?)<\\/script>/g)].map(m=>[m[1],m[2]]));
-test("006 is separate and 005 remains available",()=>{assert.match(before,/NATURE STUDY \\/ 005/);assert.match(after,/NATURE STUDY \\/ 006/);assert.doesNotMatch(before,/uLandscape/);});
+const blocks=Object.fromEntries([...after.matchAll(/<script id="(\w+)"[^>]*>([\s\S]*?)<\/script>/g)].map(m=>[m[1],m[2]]));
+test("006 is separate and 005 remains available",()=>{assert.match(before,/NATURE STUDY \/ 005/);assert.match(after,/NATURE STUDY \/ 006/);assert.doesNotMatch(before,/uLandscape/);});
 test("006 bounded shore eliminates unbounded snow wall",()=>{for(const x of [-60,0,60])for(const season of [0,1,2,3]){const heights=[3,15,65,150,240].map(d=>shoreHeight006(x,shoreline(x)-d,season));assert.ok(heights.every(h=>h>=0&&h<5.6));assert.ok(heights[4]-heights[2]<1.7);}assert.ok(shoreHeight006(0,shoreline(0)+1)<0);});
 test("distant hills roll naturally",()=>{const v=[-110,-20,30,120].map(x=>ridgeHeight006(x));assert.ok(Math.max(...v)-Math.min(...v)>1);});
 test("both programs share 006 geometry and 005 A/B",()=>{for(const k of ["uLandscape","pLandscape","landscapeToggle","landscape=1-landscape"])assert.ok(after.includes(k),k);for(const n of ["frag","particleFrag"]){assert.match(blocks[n],/float forestBaseMask\(vec3 p,float depth\)/);assert.match(blocks[n],/float treeIntersect\(vec3 ro,vec3 rd,out int idx,out int branch\)/);}});
 test("water and particle features retained",()=>{for(const k of ["impactGradient(p.xz)","uImpacts[12]","gl.drawArrays(gl.POINTS,0,PARTICLE_COUNT)"])assert.ok(after.includes(k),k);});
-test("script parses, shader delimiters balance (not GPU proof)",()=>{for(const name of ["frag","vert","particleFrag","particleVert"]){assert.ok(blocks[name]);assert.equal((blocks[name].match(/\{/g)||[]).length,(blocks[name].match(/\}/g)||[]).length);}const j=[...after.matchAll(/<script>([\\s\\S]*?)<\\/script>/g)];assert.equal(j.length,1);new Script(j[0][1]);});
+test("script parses, shader delimiters balance (not GPU proof)",()=>{for(const name of ["frag","vert","particleFrag","particleVert"]){assert.ok(blocks[name]);assert.equal((blocks[name].match(/\{/g)||[]).length,(blocks[name].match(/\}/g)||[]).length);}const j=[...after.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(j.length,1);new Script(j[0][1]);});
