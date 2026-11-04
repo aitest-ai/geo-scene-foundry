@@ -14,3 +14,8 @@
 - 冬季積雪/結冰需獨立幾何與碰撞，不能只換色。
 - 青池 001 有多頻正弦波與簡化反射；**尚未完成** Open Water 四層 FFT、測繪、跨裝置驗收。
 - 詳見 [QA](QA.md)、[Sources](SOURCES.md)。
+
+## 006 自然湖岸／遠方森林修正
+
+- [可重用技能](../skills/lake-shore-naturalizer/SKILL.md)、[完整 WebGL2 實例](demos/blue-pond-landscape-006.html)、[純 JS 岸坡公式](runtime/shore-profile.mjs)。
+- 保留 005 水面、樹木與季節粒子，並新增 005/006 對岸 A/B 切換；本階段仍非真實 DEM 地理還原。

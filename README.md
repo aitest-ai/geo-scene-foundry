@@ -35,3 +35,9 @@
 - [獨立 005 HTML](nature/demos/blue-pond-seasons-005.html)｜[技能](skills/particle-water-contact/SKILL.md)｜[參數](nature/effects/particle-contact-v0.1.json)｜[QA](nature/demos/README-season-005.md)。
 - 005 依樹幹、岸地、森林和水面判斷遮擋，另以小範圍法線擾動呈現落水漣漪。實際 WebGL2/手機畫面未驗收，沒有完整 FFT 與物理落葉／積雪。
 - 保留原始 001～004 及所有洞爺湖、鄭成功等既有專案不變。
+
+## 青池自然景色 006｜對岸地形修復（獨立候選）
+
+- [006 可操作 HTML](nature/demos/blue-pond-landscape-006.html)：修正 005 對岸灰白高牆，加入有界岸坡、低丘、林冠與冬雪斑塊；提供新舊地景同鏡位切換。
+- [自然湖岸共用技能](skills/lake-shore-naturalizer/SKILL.md)／[006 技術文件](nature/demos/README-landscape-006.md)／[參數與 QA](nature/effects/lake-shore-006.json)。
+- 001～005 和原本網站保留；已通過離屏 OpenGL ES 編譯／同鏡位渲染，但未完成 Chrome／手機性能和地理精度驗收。

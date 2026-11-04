@@ -1,0 +1,36 @@
+{
+  "id": "lake-shore-naturalizer",
+  "version": "0.1.0",
+  "status": "prototype",
+  "baseline": "nature/demos/blue-pond-seasons-005.html",
+  "candidate": "nature/demos/blue-pond-landscape-006.html",
+  "geometry": {
+    "shoreBounded": true,
+    "linearUnboundedBankRemoved": true,
+    "shoreWetBand": true,
+    "lowHillLayers": 2,
+    "forestDepthLayers": 2,
+    "seasonalSnowPatch": true,
+    "sameCameraToggle": "uLandscape",
+    "gpuShaders": [
+      "frag",
+      "particleFrag"
+    ]
+  },
+  "qa": {
+    "eglGLES3Compile": true,
+    "eglProgramLink": true,
+    "offscreenSameCameraComparison": true,
+    "nodeTestsPassed": true,
+    "chromeVerified": false,
+    "mobileVerified": false,
+    "geosurveyed": false,
+    "fftIntegrated": false,
+    "waterChanged": false
+  },
+  "sha256": {
+    "baselineLocal": "e65fe9e62cfb88c493ef2f509ec0d9dcf6f7f28bd9d20542ea1d6186dc944db6",
+    "candidate": "915be75632c3d5755f9670f79ae87a1c98aa67791a9de22d0dad4d4c2e56a441"
+  },
+  "reference": "https://www.biei-hokkaido.jp/ja/facility/shirogane-blue-pond"
+}
