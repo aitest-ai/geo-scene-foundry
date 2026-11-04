@@ -14,7 +14,7 @@
 
 ## 驗證
 - JS `node --check` 通過；獨立測試中的六項程式／完整性檢查通過。
-- 先前 003 SHA-256 維持 `af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b`。
+- GitHub 原版 003 內容 SHA-256 是 `d8b678cc78caf0d41eba25624f3f191c74260834ef26092174b8d1f94ec35adf`；本機匯出多一個結尾換行，SHA-256 為 `af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b`。兩者其餘文字一致；測試只正規化最末換行，**沒有改動 003**。
 - 這個執行環境 Chromium 的 `file://` 導航受到管理限制，`set_content()` 下 WebGL2 context 不可用。**沒有完成實際 shader GPU 編譯、品質截圖、FPS 或 Android/iOS 驗收。**
 - 完整 Q/A 記錄見 `blue-pond-004-qa.json`。
 

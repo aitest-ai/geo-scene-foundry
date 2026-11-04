@@ -2,7 +2,7 @@
   "version": "004",
   "date": "2026-11-04",
   "source": "blue-pond-seasons-003.html",
-  "source_sha256": "af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b",
+  "source_sha256": "d8b678cc78caf0d41eba25624f3f191c74260834ef26092174b8d1f94ec35adf",
   "demo": "blue-pond-seasons-004.html",
   "new_components": [
     "gpu-particle-vertex-shader",
@@ -20,5 +20,8 @@
   "mobile": "not-tested",
   "fps": "not-tested",
   "fftIntegrated": false,
-  "originalMapsChanged": false
+  "originalMapsChanged": false,
+  "github003ContentSHA256": "d8b678cc78caf0d41eba25624f3f191c74260834ef26092174b8d1f94ec35adf",
+  "local003ExportWithFinalNewlineSHA256": "af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b",
+  "note": "003 GitHub and exported local file have identical text except a final newline; canonical digest normalizes that final newline."
 }
