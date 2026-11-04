@@ -1,0 +1,13 @@
+import test from "node:test";import assert from "node:assert/strict";import{readFileSync}from"node:fs";import{createHash}from"node:crypto";import{Script}from"node:vm";
+import{seasonalParticleState}from"../runtime/particle-presets.mjs";
+const a=readFileSync(new URL("../demos/blue-pond-seasons-003.html",import.meta.url),"utf8");
+const b=readFileSync(new URL("../demos/blue-pond-seasons-004.html",import.meta.url),"utf8");
+const p=JSON.parse(readFileSync(new URL("../effects/seasonal-particles-v0.1.json",import.meta.url),"utf8"));
+const digest=s=>createHash("sha256").update(s).digest("hex");
+test("003 is intact and 004 is version-isolated",()=>{assert.equal(digest(a),"af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b");assert.ok(b.includes("NATURE STUDY / 004"));assert.ok(!a.includes("particleVert"))});
+test("004 keeps the water while adding independent GPU point sprites",()=>{for(const k of ["particleVert","particleFrag","gl_VertexID","gl_PointCoord","gl.drawArrays(gl.POINTS,0,PARTICLE_COUNT)","gl.drawArrays(gl.TRIANGLES,0,3)","PARTICLE_COUNT=320"])assert.ok(b.includes(k),k);assert.equal(p.gpu.pointCount,320)});
+test("four seasons and user controls",()=>{for(const k of ['data-season="0"','data-season="1"','data-season="2"','data-season="3"','id="particles"','id="effectToggle"','id="pauseMotion"','id="beforeAfter"'])assert.ok(b.includes(k),k);assert.equal(p.modes.summer.relativeOpacity,0);assert.equal(p.gpu.defaultIntensity,.65)});
+test("fallback and bounds retained",()=>{assert.ok(b.includes("particleProgram=null"));assert.ok(b.includes("if(particleProgram&&particleEnabled"));assert.ok(b.includes("gl.disable(gl.BLEND)"))});
+test("script syntax and bounded GLSL delimiters",()=>{const js=[...b.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(js.length,1);new Script(js[0][1]);for(const id of ["particleVert","particleFrag"]){const shader=b.match(new RegExp('<script id="'+id+'"[^>]*>([\\s\\S]*?)<\\/script>'))?.[1];assert.ok(shader);assert.equal((shader.match(/\{/g)||[]).length,(shader.match(/\}/g)||[]).length);}});
+test("pure shared math is deterministic and season-aware",()=>{assert.deepEqual(seasonalParticleState(9,1.5,2,.25),seasonalParticleState(9,1.5,2,.25));assert.equal(seasonalParticleState(9,0,1,.25).opacity,0);assert.equal(seasonalParticleState(9,0,3,.25).kind,"snow");assert.equal(seasonalParticleState(9,0,0,.25).kind,"petal");});
+test("honest maturity and QA",()=>{assert.equal(p.status,"prototype");assert.equal(p.qa.webgl2Verified,false);assert.equal(p.qa.mobileVerified,false);assert.equal(p.qa.fftIntegrated,false);assert.equal(p.gpu.hasDepthOcclusion,false)});

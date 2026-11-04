@@ -23,3 +23,9 @@
 
 - [003 獨立互動 HTML](nature/demos/blue-pond-seasons-003.html)：兩層不規則森林、冬季岸雪微地形、秋冬反射和 002/003 同鏡位切換。
 - [003 技術 QA](nature/demos/README-season-003.md)：WebGL2 實際 GPU、FPS 與手機尚未驗證；舊版 001/002 均保留。
+
+## 004 季節粒子獨立實驗（未完成 GPU 視覺驗收）
+
+- [004 單檔互動頁](nature/demos/blue-pond-seasons-004.html)：春花瓣、秋落葉、冬細雪，與粒子密度、暫停／開關。
+- [季節粒子技能](skills/seasonal-particles/SKILL.md)｜[設定 JSON](nature/effects/seasonal-particles-v0.1.json)｜[003→004 QA](nature/demos/README-season-004.md)。
+- 003 和過去版本、既有地圖／網站均保留。上述是 visual prototype，尚未通過真實 WebGL2/手機測試。

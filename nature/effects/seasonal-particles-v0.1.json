@@ -1,0 +1,59 @@
+{
+  "id": "seasonal-particles",
+  "version": "0.1.0",
+  "status": "prototype",
+  "source": "nature/demos/blue-pond-seasons-004.html",
+  "gpu": {
+    "pointCount": 320,
+    "maxPointSizePx": 14,
+    "defaultIntensity": 0.65,
+    "intensityRange": [
+      0,
+      1
+    ],
+    "usesGLVertexId": true,
+    "requiresWebGL2": true,
+    "hasDepthOcclusion": false,
+    "hasCollision": false,
+    "hasAccumulation": false
+  },
+  "modes": {
+    "spring": {
+      "kind": "petals",
+      "seasonIndex": 0,
+      "relativeOpacity": 0.48,
+      "colorStyle": "pale-pink"
+    },
+    "summer": {
+      "kind": "none",
+      "seasonIndex": 1,
+      "relativeOpacity": 0,
+      "colorStyle": "none"
+    },
+    "autumn": {
+      "kind": "leaves",
+      "seasonIndex": 2,
+      "relativeOpacity": 0.85,
+      "colorStyle": "amber-ochre"
+    },
+    "winter": {
+      "kind": "snow",
+      "seasonIndex": 3,
+      "relativeOpacity": 1,
+      "colorStyle": "cool-white"
+    }
+  },
+  "controls": [
+    "intensity",
+    "wind",
+    "enabled",
+    "pause",
+    "season"
+  ],
+  "qa": {
+    "webgl2Verified": false,
+    "mobileVerified": false,
+    "fftIntegrated": false,
+    "scientificallyCalibrated": false
+  }
+}

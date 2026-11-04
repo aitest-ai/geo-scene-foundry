@@ -1,0 +1,24 @@
+{
+  "version": "004",
+  "date": "2026-11-04",
+  "source": "blue-pond-seasons-003.html",
+  "source_sha256": "af19b7fffeb1071895fe1a2ecc5131c68d05152827103651d1cb59a89eb5ac5b",
+  "demo": "blue-pond-seasons-004.html",
+  "new_components": [
+    "gpu-particle-vertex-shader",
+    "gpu-particle-fragment-shader",
+    "seasonal-effect-switch",
+    "particle-density-control",
+    "pause-compare"
+  ],
+  "status": "prototype-unverified-gpu",
+  "local_node_static_tests": "6/6 passed",
+  "local_js_syntax": "pass",
+  "browser_file_url": "blocked-by-administrator",
+  "browser_set_content_webgl2": "not-available",
+  "webgl2_visual": "not-tested",
+  "mobile": "not-tested",
+  "fps": "not-tested",
+  "fftIntegrated": false,
+  "originalMapsChanged": false
+}
