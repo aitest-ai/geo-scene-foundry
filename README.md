@@ -14,3 +14,7 @@
 `npm test`：Node 20+、不需額外安裝套件。
 
 **請注意：** `blue-pond-001.html` 是原本的多頻波與反射實驗，**並非** Open Water FFT 引擎完整移植，其他湖景目前是設計預設；任何技能不應自行覆寫既有地圖。
+## 002 四季互動實驗版（待 GPU 視覺驗收）
+
+- [青池四季互動 HTML](nature/demos/blue-pond-seasons-002.html)：青池、夏湖、薄霧、夕照＋春夏秋冬的色彩、天空與霧參數過渡，**保留 001 不變**。
+- [002 技術與驗收紀錄](nature/demos/README-season-002.md)：目前 JS 靜態檢查通過，但環境 Chromium 無 WebGL2，尚未完成真實瀏覽器 GPU 測試。
