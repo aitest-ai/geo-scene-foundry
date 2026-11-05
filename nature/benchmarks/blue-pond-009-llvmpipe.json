@@ -1,0 +1,199 @@
+{
+  "project": "Blue Pond 009",
+  "date": "2026-11-05",
+  "sourceSha256": "9496ed23db8b5296e2d939c75456f78258447f632fb0bf8196f3999c2d2e362a",
+  "candidateSha256": "11430beca035c9c8c90569868f08781dc5ac03679c824531814c130df514e411",
+  "renderer": "Mesa llvmpipe (LLVM 19.1.7, 256 bits)",
+  "api": "OpenGL ES 3.2 Mesa 25.0.7",
+  "resolution": [
+    480,
+    270
+  ],
+  "metric": "synchronous glFinish wall completion ms (including CPU and driver), not pure GPU timer nor live FPS",
+  "sampling": "ABBA [008,009,009,008] warmups, same camera/fixed time/season; small non-random samples",
+  "scenarios": [
+    {
+      "name": "summer",
+      "season": 1,
+      "yawRadians": 0,
+      "particlePass": false,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 37.638,
+          "newMedianMs": 34.037,
+          "relativeChangePercent": -9.57,
+          "oldP95Ms": 57.209,
+          "newP95Ms": 52.812,
+          "samplesPerMode": 30,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 36.212,
+          "newMedianMs": 34.195,
+          "relativeChangePercent": -5.57,
+          "oldP95Ms": 56.989,
+          "newP95Ms": 53.346,
+          "samplesPerMode": 30,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    },
+    {
+      "name": "autumn",
+      "season": 2,
+      "yawRadians": 0,
+      "particlePass": false,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 36.851,
+          "newMedianMs": 32.272,
+          "relativeChangePercent": -12.43,
+          "oldP95Ms": 55.726,
+          "newP95Ms": 54.292,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 36.025,
+          "newMedianMs": 31.373,
+          "relativeChangePercent": -12.91,
+          "oldP95Ms": 54.523,
+          "newP95Ms": 51.773,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    },
+    {
+      "name": "winter",
+      "season": 3,
+      "yawRadians": 0,
+      "particlePass": false,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 37.103,
+          "newMedianMs": 32.38,
+          "relativeChangePercent": -12.73,
+          "oldP95Ms": 54.963,
+          "newP95Ms": 53.408,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 38.087,
+          "newMedianMs": 32.105,
+          "relativeChangePercent": -15.71,
+          "oldP95Ms": 55.348,
+          "newP95Ms": 53.314,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    },
+    {
+      "name": "winter-angled",
+      "season": 3,
+      "yawRadians": 0.35,
+      "particlePass": false,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 35.426,
+          "newMedianMs": 30.636,
+          "relativeChangePercent": -13.52,
+          "oldP95Ms": 53.199,
+          "newP95Ms": 52.927,
+          "samplesPerMode": 24,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 34.395,
+          "newMedianMs": 30.13,
+          "relativeChangePercent": -12.4,
+          "oldP95Ms": 53.608,
+          "newP95Ms": 48.237,
+          "samplesPerMode": 24,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    },
+    {
+      "name": "autumn-particles",
+      "season": 2,
+      "yawRadians": 0,
+      "particlePass": true,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 51.004,
+          "newMedianMs": 47.503,
+          "relativeChangePercent": -6.86,
+          "oldP95Ms": 64.268,
+          "newP95Ms": 57.519,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 38.703,
+          "newMedianMs": 32.889,
+          "relativeChangePercent": -15.02,
+          "oldP95Ms": 59.302,
+          "newP95Ms": 51.578,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    },
+    {
+      "name": "winter-particles",
+      "season": 3,
+      "yawRadians": 0,
+      "particlePass": true,
+      "conditions": [
+        {
+          "name": "noRipples",
+          "oldMedianMs": 36.881,
+          "newMedianMs": 30.888,
+          "relativeChangePercent": -16.25,
+          "oldP95Ms": 59.059,
+          "newP95Ms": 52.627,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        },
+        {
+          "name": "oneRipple",
+          "oldMedianMs": 32.186,
+          "newMedianMs": 36.416,
+          "relativeChangePercent": 13.14,
+          "oldP95Ms": 54.286,
+          "newP95Ms": 51.057,
+          "samplesPerMode": 16,
+          "nonzeroRGBPixelDifferences": 0
+        }
+      ]
+    }
+  ],
+  "caveats": [
+    "software renderer only",
+    "real desktop/mobile GPU FPS not measured",
+    "small sample noise",
+    "one winter particles+ripple run regressed in median",
+    "not Open Water FFT",
+    "pixel equality limited to reported scenes"
+  ],
+  "verification": {
+    "shaderCompileAndProgramLinkGLES32": true,
+    "allReportedScenesPixelIdentical": true,
+    "realHardwareGPU": false,
+    "mobile": false,
+    "webBrowserVisual": false
+  }
+}

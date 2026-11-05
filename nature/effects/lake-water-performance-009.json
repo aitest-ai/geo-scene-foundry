@@ -1,0 +1,35 @@
+{
+  "id": "lake-water-performance-009",
+  "version": "0.1.0",
+  "status": "prototype",
+  "baseline": "nature/demos/blue-pond-forest-008.html",
+  "candidate": "nature/demos/blue-pond-performance-009.html",
+  "techniques": [
+    "Conservative whole-grove 3D AABB rejection in scene and particle shaders",
+    "Conservative shore cutoff t>tWater+stepT",
+    "Only active ripple events processed using uImpactCount",
+    "Transparent sprite fragments discarded before ray occlusion"
+  ],
+  "controls": {
+    "oldNew": "fast009Toggle",
+    "benchmark": "benchmark009",
+    "export": "saveBenchmark009",
+    "phaseOrder": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "warmupFramesPerPhase": 12,
+    "sampleFramesPerPhase": 32
+  },
+  "qa": {
+    "nodeStructuralTests": true,
+    "offlineGLES32Compile": true,
+    "reportedScenePixelEquivalence": true,
+    "realDesktopGPU": false,
+    "realMobileFPS": false,
+    "fftIntegrated": false,
+    "originalProjectsModified": false
+  }
+}
