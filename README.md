@@ -52,3 +52,9 @@
 
 - [008 完整 WebGL2 單檔](nature/demos/blue-pond-forest-008.html)｜[AI 共用技能](skills/lake-forest-lod/SKILL.md)｜[效能實測紀錄](nature/benchmarks/blue-pond-008-llvmpipe.json)。
 - 湖水、枯立木與 001～007 均保留。新樹冠在軟體 OpenGL ES 編譯／渲染通過，但同解析度沒有證明比 007 快；瀏覽器與手機 FPS 尚待驗收。
+
+## 009｜水質保真效能診斷（獨立候選）
+
+- [完整 009 互動 HTML](nature/demos/blue-pond-performance-009.html)：008／009 同鏡位切換，枯木快速排除、保守岸地搜尋、有效漣漪數與透明粒子剔除。
+- [共享 AI 技能](skills/lake-water-performance/SKILL.md)｜[技術與限制](nature/demos/README-performance-009.md)｜[軟體渲染結果](nature/benchmarks/blue-pond-009-llvmpipe.json)。
+- 原本 001～008 及所有既有 3D 地圖保留。llvmpipe 測試多數樣本有改善，但實體 GPU／手機 FPS 尚未驗證。
